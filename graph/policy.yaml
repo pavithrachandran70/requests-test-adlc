@@ -1,0 +1,9 @@
+# Override default ADLC graph policy here.
+# Default standard path (dual gates):
+#   analyst → tpm_gate → ticketize → architect → … → merge_pack → architect_gate → dev
+# Quick track skips tpm_gate/ticketize/architect/…/merge_pack (single architect_gate).
+loops:
+  critic_fix:
+    max: 2
+  dev_inner:
+    max: 3
