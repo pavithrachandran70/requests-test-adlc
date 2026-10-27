@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "key": "PER-63",
+  "source": "llm",
+  "complexity": "simple",
+  "summary": "Replace two OSError raises with FileNotFoundError (preserving OSError as parent), set filename attribute, and verify backward compatibility; test_architect ensures edge cases and message format are covered.",
+  "track_hint": "standard",
+  "steps": [
+    {
+      "node": "analyst",
+      "activity": "inline_story",
+      "why": "Ticket scope is concrete: change two specific raises (cert and key), preserve the third (CA-bundle), set filename attribute, and maintain OSError compatibility.",
+      "instructions": "Replace only the certificate-file and key-file OSError raises with FileNotFoundError. Keep the CA-bundle raise as OSError. Use the FileNotFoundError constructor that sets the filename attribute to the path passed in. Specify the exact str(exc) format for test_invalid_ssl_certificate_files compatibility. State that FileNotFoundError remains a subclass of OSError.",
+      "auto": false,
+      "status": "pending",
+      "rerun": true
+    },
+    {
+      "node": "test_architect",
+      "activity": "tests",
+      "why": "Acceptance criteria specify multiple edge cases: missing cert, missing key, filename attribute, backward compatibility with OSError catch, and message format for existing tests.",
+      "instructions": "",
+      "auto": false,
+      "status": "pending",
+      "rerun": true
+    },
+    {
+      "node": "architect_gate",
+      "activity": "review",
+      "why": "Human approval of specs and this plan before Dev.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": true
+    },
+    {
+      "node": "dev",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    },
+    {
+      "node": "pre_pr_qa",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    },
+    {
+      "node": "open_pr",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    },
+    {
+      "node": "pr_review",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    },
+    {
+      "node": "merge",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    }
+  ],
+  "skipped": [
+    {
+      "node": "tpm_gate",
+      "why": "Ticket scope and acceptance criteria are unambiguous and purely technical."
+    },
+    {
+      "node": "architect",
+      "why": "No API contract, schema, or cross-repo changes; the change is localized to exception handling in one function."
+    },
+    {
+      "node": "scrum_master",
+      "why": "Single story in one repo; no breakdown needed."
+    },
+    {
+      "node": "designer",
+      "why": "Implementation is straightforward: replace two OSError raises with FileNotFoundError(message, filename=path)."
+    },
+    {
+      "node": "critic",
+      "why": "Only one spec artifact (the story with tests); nothing to cross-check."
+    }
+  ],
+  "suggested_roles": [],
+  "notes": [],
+  "created_at": "2026-10-27T11:01:18.484860+00:00",
+  "version": 2,
+  "trigger": "review",
+  "gate": "plan_review",
+  "feedback": [
+    {
+      "id": "hub#4:issue-6440239992",
+      "source": "pr_conversation",
+      "body": "Analyst scope is too small:\r\n \r\nThe analyst step says \"add one unit test\" and \"replace OSError with FileNotFoundError.\" `cert_verify` has three `OSError` raises. Only the certificate-file raise and the key-file raise should change. The CA-bundle raise (`Could not find a suitable TLS CA certificate bundle`) stays `OSError`. `FileNotFoundError(message)` does not set `.filename`. The story needs the constructor that sets `filename` to the path that was passed in, keeps `FileNotFoundError` a subclass of `OSError`, and states what `str(exc)` should be, because `tests/test_requests.py::test_invalid_ssl_certificate_files` asserts the current message.",
+      "author": "pavithrachandran70",
+      "path": null,
+      "line": null,
+      "pr": "hub#4"
+    }
+  ],
+  "feedback_errors": [],
+  "seen_feedback_ids": [
+    "hub#4:issue-6440239992"
+  ],
+  "change_summary": "Analyst instructions updated to specify which two OSError raises to change (cert and key, not CA-bundle), use FileNotFoundError constructor with filename parameter, preserve str(exc) format, and state OSError subclass relationship.",
+  "changes": {
+    "added": [],
+    "removed": [],
+    "rerun": [],
+    "kept": []
+  },
+  "addressed": [
+    {
+      "feedback_id": "hub#4:issue-6440239992",
+      "change": "Analyst rerun with instructions to change only cert and key raises, keep CA-bundle as OSError, set filename attribute via constructor, specify message format for test compatibility, and confirm FileNotFoundError remains OSError subclass."
+    }
+  ],
+  "unresolved_questions": [],
+  "requires_review": true
+}

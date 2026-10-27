@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "key": "PER-63",
+  "source": "llm",
+  "complexity": "simple",
+  "summary": "Single-repo exception contract change: replace two OSError raises with FileNotFoundError in cert_verify, set filename attribute, preserve OSError compatibility, and add tests for edge cases.",
+  "track_hint": "standard",
+  "steps": [
+    {
+      "node": "analyst",
+      "activity": "inline_story",
+      "why": "Ticket scope is concrete: change two specific raises (cert and key), preserve the third (CA-bundle), set filename attribute, and maintain OSError compatibility.",
+      "instructions": "",
+      "auto": false,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "designer",
+      "activity": "lld",
+      "why": "Caller-visible exception contract: must specify exact raise statements for missing cert and key paths, how filename is set, and that CA-bundle raise is unchanged.",
+      "instructions": "Name the exact FileNotFoundError raise for missing cert path and missing key path, including how the filename parameter is set. Confirm the CA-bundle raise is unchanged. This is an exception contract, not an implementation detail.",
+      "auto": false,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "test_architect",
+      "activity": "tests",
+      "why": "Acceptance criteria specify multiple edge cases: missing cert, missing key, filename attribute, backward compatibility with OSError catch, and message format for existing tests.",
+      "instructions": "",
+      "auto": false,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "architect_gate",
+      "activity": "review",
+      "why": "Human approval of specs and this plan before Dev.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": true
+    },
+    {
+      "node": "dev",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    },
+    {
+      "node": "pre_pr_qa",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    },
+    {
+      "node": "open_pr",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    },
+    {
+      "node": "pr_review",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    },
+    {
+      "node": "merge",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    }
+  ],
+  "skipped": [
+    {
+      "node": "tpm_gate",
+      "why": "Ticket scope and acceptance criteria are unambiguous and purely technical."
+    },
+    {
+      "node": "architect",
+      "why": "No new components, cross-repo dependencies, or schema changes; the exception contract is handled by the designer."
+    },
+    {
+      "node": "scrum_master",
+      "why": "Single story in one repo; no breakdown needed."
+    },
+    {
+      "node": "critic",
+      "why": "Only one spec artifact (the story with tests); nothing to cross-check."
+    }
+  ],
+  "suggested_roles": [],
+  "notes": [],
+  "created_at": "2026-10-27T11:07:03.120185+00:00",
+  "version": 3,
+  "trigger": "review",
+  "gate": "plan_review",
+  "feedback": [
+    {
+      "id": "hub#4:issue-6440350463",
+      "source": "pr_conversation",
+      "body": "2. Add designer\r\n\r\nThis is a caller-visible exception contract, not a class-name swap. Add a designer step that names the exact raise for the missing cert path and the missing key path, including how .filename is set, and that says the CA-bundle raise is unchanged. The skip reason \"no API contract\" does not match the ticket.",
+      "author": "pavithrachandran70",
+      "path": null,
+      "line": null,
+      "pr": "hub#4"
+    }
+  ],
+  "feedback_errors": [],
+  "seen_feedback_ids": [
+    "hub#4:issue-6440239992",
+    "hub#4:issue-6440350463"
+  ],
+  "change_summary": "Added designer step to specify the exact FileNotFoundError raises for missing cert and key paths, including filename attribute handling and CA-bundle preservation.",
+  "changes": {
+    "added": [
+      "designer"
+    ],
+    "removed": [],
+    "rerun": [],
+    "kept": []
+  },
+  "addressed": [
+    {
+      "feedback_id": "hub#4:issue-6440350463",
+      "change": "Added designer step with focus on naming exact raise statements for missing cert/key paths, filename parameter, and unchanged CA-bundle raise."
+    }
+  ],
+  "unresolved_questions": [],
+  "requires_review": true
+}
