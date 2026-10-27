@@ -11,3 +11,6 @@
 {"at": "2026-10-27T11:55:48.129604+00:00", "node": "designer", "event": "llm_ok", "model": "claude-sonnet-4-5-20250929", "in": 12847, "out": 3275, "cache_read": 0, "usd": 0.087666, "ms": 30441, "ok": true, "dry_run": false, "error": null}
 {"at": "2026-10-27T11:56:36.114451+00:00", "node": "test_architect", "event": "llm_ok", "model": "claude-sonnet-4-5-20250929", "in": 11877, "out": 3275, "cache_read": 0, "usd": 0.084756, "ms": 47967, "ok": true, "dry_run": false, "error": null}
 {"at": "2026-10-27T12:01:52.456213+00:00", "node": "dev", "event": "cursor_run", "ok": false, "status": "error", "error": "agent exit 1"}
+{"at": "2026-10-27T12:02:17.398464+00:00", "node": "reviewer", "event": "llm_ok", "model": "claude-sonnet-4-5-20250929", "in": 5315, "out": 567, "cache_read": 0, "usd": 0.02445, "ms": 12341, "ok": true, "dry_run": false, "error": null}
+{"at": "2026-10-27T12:02:26.003649+00:00", "node": "reviewer", "event": "llm_ok", "model": "claude-haiku-4-5-20251001", "in": 380, "out": 71, "cache_read": 0, "usd": 0.000735, "ms": 1741, "ok": true, "dry_run": false, "error": null}
+{"at": "2026-10-27T12:02:30.304066+00:00", "node": "reviewer", "event": "llm_ok", "model": "claude-haiku-4-5-20251001", "in": 305, "out": 81, "cache_read": 0, "usd": 0.00071, "ms": 2021, "ok": true, "dry_run": false, "error": null}

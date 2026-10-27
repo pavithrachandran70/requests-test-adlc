@@ -1,15 +1,15 @@
 ---
 schema_version: 1
 key: PER-63
-status: in_development
-current_node: dev
+status: changes_requested
+current_node: pr_review
 track: standard
 involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
 lease_until: '2026-10-29T11:57:36.506882+00:00'
-revision: 111
+revision: 116
 hub_sha: null
 ticket_hash: 0b4251e6786d97fc
 jira_hash: 0b4251e6786d97fc
@@ -29,10 +29,11 @@ pr_ids:
   hub_arch: '5'
   hub: '5'
   hub_plan: '6'
-waiting_for: null
-tokens_in: 75609
-tokens_out: 17460
-cost_anthropic_usd: 0.488383
+  demo-test: '3'
+waiting_for: spec_revision
+tokens_in: 81609
+tokens_out: 18179
+cost_anthropic_usd: 0.514278
 history:
 - node: intake
   note: snapshot written
@@ -117,6 +118,41 @@ history:
 - node: dev
   note: done 01-demo-test (verify-ok; agent status=error)
   at: '2026-10-27T12:01:52.695892+00:00'
+- node: dev
+  note: checkpoint push rejected
+  at: '2026-10-27T12:01:55.077336+00:00'
+- node: pre_pr_qa
+  note: report written
+  at: '2026-10-27T12:01:55.208546+00:00'
+- node: open_pr
+  note: push demo-test ok
+  at: '2026-10-27T12:02:03.971501+00:00'
+- node: open_pr
+  note: PRs opened demo-test:3
+  at: '2026-10-27T12:02:03.971529+00:00'
+- node: pr_review
+  note: diff loaded demo-test chars=384
+  at: '2026-10-27T12:02:05.040196+00:00'
+- node: pr_review
+  note: 'inline review demo-test: 2 comment(s)'
+  at: '2026-10-27T12:02:20.131317+00:00'
+- node: pr_review
+  note: demo-test:issue:major:**AC gap:** The PR only adds `.gitignore` entries for
+    ADLC/Cursor tooling. No ch
+  at: '2026-10-27T12:02:26.005942+00:00'
+- node: pr_review
+  note: "major issue classified \u2192 human (deferred; continue auto-fix)"
+  at: '2026-10-27T12:02:28.282004+00:00'
+- node: pr_review
+  note: demo-test:issue:major:**Wrong scope:** `.gitignore` changes are unrelated
+    to PER-63's acceptance crite
+  at: '2026-10-27T12:02:30.305859+00:00'
+- node: pr_review
+  note: "major issue classified \u2192 human (deferred; continue auto-fix)"
+  at: '2026-10-27T12:02:32.324903+00:00'
+- node: pr_review
+  note: "major issue \u2192 delta spec gate (human)"
+  at: '2026-10-27T12:02:32.325429+00:00'
 ---
 
 # Feature state
