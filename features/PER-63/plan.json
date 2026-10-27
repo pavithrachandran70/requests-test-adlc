@@ -3,7 +3,7 @@
   "key": "PER-63",
   "source": "llm",
   "complexity": "simple",
-  "summary": "Single-repo exception contract change: replace two OSError raises with FileNotFoundError in cert_verify, set filename attribute, preserve OSError compatibility, and add tests for edge cases.",
+  "summary": "Single-repo exception change: two raises updated for FileNotFoundError with filename attribute; designer must regenerate LLD with corrected test snippets per reviewer feedback.",
   "track_hint": "standard",
   "steps": [
     {
@@ -19,7 +19,7 @@
       "node": "designer",
       "activity": "lld",
       "why": "Caller-visible exception contract: must specify exact raise statements for missing cert and key paths, how filename is set, and that CA-bundle raise is unchanged.",
-      "instructions": "Name the exact FileNotFoundError raise for missing cert path and missing key path, including how the filename parameter is set. Confirm the CA-bundle raise is unchanged. This is an exception contract, not an implementation detail.",
+      "instructions": "Rewrite Test 1, Test 2, and Test 3 to call cert_verify(conn, url, verify, cert) with a stand-in connection object, an https URL, verify=True, and cert set to the missing path or (cert_path, missing_key_path) tuple. Assert exc.filename is that path. Tests must not open a TLS connection.",
       "auto": false,
       "status": "done",
       "rerun": false
@@ -108,39 +108,43 @@
   ],
   "suggested_roles": [],
   "notes": [],
-  "created_at": "2026-10-27T11:07:03.120185+00:00",
-  "version": 3,
+  "created_at": "2026-10-27T11:52:00.325155+00:00",
+  "version": 4,
   "trigger": "review",
-  "gate": "plan_review",
+  "gate": "architect_review",
   "feedback": [
     {
-      "id": "hub#4:issue-6440350463",
+      "id": "hub#5:issue-6441178431",
       "source": "pr_conversation",
-      "body": "2. Add designer\r\n\r\nThis is a caller-visible exception contract, not a class-name swap. Add a designer step that names the exact raise for the missing cert path and the missing key path, including how .filename is set, and that says the CA-bundle raise is unchanged. The skip reason \"no API contract\" does not match the ticket.",
+      "body": "1. On the test snippets (Test 1–3)\r\n\r\nHTTPAdapter.cert_verify is cert_verify(self, conn, url, verify, cert). These samples call adapter.cert_verify(None, missing_cert_path, None), so the missing path is passed as url and cert is never set. Rewrite Test 1, Test 2, and Test 3 to call cert_verify with a stand-in connection, an https URL, verify=True, and cert set to the missing path or the (cert_path, missing_key_path) tuple. Assert exc.filename is that path. The tests must not open a TLS connection.",
       "author": "pavithrachandran70",
       "path": null,
       "line": null,
-      "pr": "hub#4"
+      "pr": "hub#5"
     }
   ],
   "feedback_errors": [],
   "seen_feedback_ids": [
     "hub#4:issue-6440239992",
-    "hub#4:issue-6440350463"
+    "hub#4:issue-6440350463",
+    "hub#5:issue-6441178431"
   ],
-  "change_summary": "Added designer step to specify the exact FileNotFoundError raises for missing cert and key paths, including filename attribute handling and CA-bundle preservation.",
+  "change_summary": "Designer reruns to fix test snippets: Test 1–3 now call cert_verify with all four arguments (conn, url, verify, cert) and do not open a TLS connection.",
   "changes": {
-    "added": [
-      "designer"
-    ],
+    "added": [],
     "removed": [],
-    "rerun": [],
-    "kept": []
+    "rerun": [
+      "designer",
+      "test_architect"
+    ],
+    "kept": [
+      "analyst"
+    ]
   },
   "addressed": [
     {
-      "feedback_id": "hub#4:issue-6440350463",
-      "change": "Added designer step with focus on naming exact raise statements for missing cert/key paths, filename parameter, and unchanged CA-bundle raise."
+      "feedback_id": "hub#5:issue-6441178431",
+      "change": "designer rerun with instructions to correct Test 1, Test 2, and Test 3 signatures and assert exc.filename without opening a TLS connection"
     }
   ],
   "unresolved_questions": [],

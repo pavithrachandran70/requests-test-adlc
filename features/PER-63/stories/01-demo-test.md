@@ -179,7 +179,21 @@ import errno
 
 ### Interface Signatures
 
-No new interfaces. Modified exception contract only.
+**Method signature (unchanged):**
+
+```python
+def cert_verify(self, conn, url, verify, cert):
+    """
+    Verify a SSL certificate. This method should not be called from user code.
+    
+    :param conn: The connection object (from urllib3)
+    :param url: The request URL
+    :param verify: Either a boolean, path to a CA bundle, or None
+    :param cert: Either a path to a cert file, a (cert, key) tuple, or None
+    """
+```
+
+**Exception contract (modified):**
 
 **Before:**
 
@@ -215,9 +229,14 @@ def test_missing_cert_raises_file_not_found_error():
 
     adapter = HTTPAdapter()
     missing_cert_path = "/tmp/does-not-exist-adlc-cert.pem"
+    
+    # Stand-in connection object (not used for file check)
+    conn = None
+    url = "https://example.com"
+    verify = True
 
     with pytest.raises(FileNotFoundError) as exc_info:
-        adapter.cert_verify(None, missing_cert_path, None)
+        adapter.cert_verify(conn, url, verify, missing_cert_path)
 
     exc = exc_info.value
     assert isinstance(exc, FileNotFoundError)
@@ -249,10 +268,15 @@ def test_missing_key_raises_file_not_found_error():
         valid_cert_path = cert_file.name
 
     missing_key_path = "/tmp/does-not-exist-adlc-key.pem"
+    
+    # Stand-in connection object (not used for file check)
+    conn = None
+    url = "https://example.com"
+    verify = True
 
     try:
         with pytest.raises(FileNotFoundError) as exc_info:
-            adapter.cert_verify(None, (valid_cert_path, missing_key_path), None)
+            adapter.cert_verify(conn, url, verify, (valid_cert_path, missing_key_path))
 
         exc = exc_info.value
         assert isinstance(exc, FileNotFoundError)
@@ -278,10 +302,15 @@ def test_file_not_found_error_is_caught_by_oserror():
 
     adapter = HTTPAdapter()
     missing_path = "/tmp/does-not-exist.pem"
+    
+    # Stand-in connection object (not used for file check)
+    conn = None
+    url = "https://example.com"
+    verify = True
 
     caught_as_oserror = False
     try:
-        adapter.cert_verify(None, missing_path, None)
+        adapter.cert_verify(conn, url, verify, missing_path)
     except OSError:
         caught_as_oserror = True
     except Exception:
