@@ -1,15 +1,15 @@
 ---
 schema_version: 1
 key: PER-63
-status: changes_requested
-current_node: pr_review
+status: in_development
+current_node: dev
 track: standard
 involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
 lease_until: '2026-10-29T11:57:36.506882+00:00'
-revision: 116
+revision: 143
 hub_sha: null
 ticket_hash: 0b4251e6786d97fc
 jira_hash: 0b4251e6786d97fc
@@ -22,7 +22,7 @@ stories:
 child_ticket_keys: []
 critic_iterations: 0
 dev_retries: 0
-pr_revision_rounds: 0
+pr_revision_rounds: 1
 gate_rounds:
   plan: 1
 pr_ids:
@@ -30,10 +30,10 @@ pr_ids:
   hub: '5'
   hub_plan: '6'
   demo-test: '3'
-waiting_for: spec_revision
-tokens_in: 81609
-tokens_out: 18179
-cost_anthropic_usd: 0.514278
+waiting_for: null
+tokens_in: 94885
+tokens_out: 21682
+cost_anthropic_usd: 0.606651
 history:
 - node: intake
   note: snapshot written
@@ -153,6 +153,32 @@ history:
 - node: pr_review
   note: "major issue \u2192 delta spec gate (human)"
   at: '2026-10-27T12:02:32.325429+00:00'
+- node: pr_review
+  note: checkpoint push rejected
+  at: '2026-10-27T12:02:34.624028+00:00'
+- node: pr_review
+  note: fix:demo-test:issue:moderate:Please address the review findings by making
+    the required changes in these two f
+  at: '2026-10-27T12:19:56.890541+00:00'
+- node: pr_review
+  note: fix:demo-test:issue:moderate:Please address the review findings by making
+    the required changes in these two f
+  at: '2026-10-27T12:20:02.129579+00:00'
+- node: pr_review
+  note: auto-fix tier=moderate round=1
+  at: '2026-10-27T12:20:03.854382+00:00'
+- node: pr_review
+  note: "route moderate \u2192 designer then dev"
+  at: '2026-10-27T12:20:04.544439+00:00'
+- node: designer
+  note: lld updated
+  at: '2026-10-27T12:20:58.981237+00:00'
+- node: dev
+  note: starting
+  at: '2026-10-27T12:20:58.981328+00:00'
+- node: dev
+  note: done 01-demo-test
+  at: '2026-10-27T12:24:49.087159+00:00'
 ---
 
 # Feature state

@@ -28,7 +28,7 @@ A missing certificate path or key path raises `FileNotFoundError` (a subclass of
 ## Scope
 
 - **In scope:** Update the two raises in `src/requests/adapters.py::HTTPAdapter.cert_verify` for missing cert and missing key paths. Add unit tests that verify the exception type, `filename` attribute, and backward compatibility without performing a TLS handshake.
-- **Out of scope:** CA-bundle lookup logic, TLS handshake behavior when files exist, changes to other repos or modules.
+- **Out of scope:** CA-bundle lookup logic, TLS handshake behavior when files exist, changes to other repos or modules, unrelated `.gitignore` changes.
 
 ---
 
@@ -370,6 +370,20 @@ assert "Could not find the TLS certificate file" in str(exc_info.value)
 
 ---
 
+## Implementation Notes
+
+### PR Review Comments Addressed
+
+**Comment 6441627532 & 4388544199:**
+
+1. **`src/requests/adapters.py`** — Updated `HTTPAdapter.cert_verify` to raise `FileNotFoundError(errno.ENOENT, message, path)` for both missing certificate and missing key paths, ensuring the exception's `filename` attribute is set correctly per the LLD above.
+
+2. **`tests/test_adapters.py`** — Added three unit tests covering missing certificate path (Test 1), missing key path (Test 2), and backward compatibility with `OSError` catch (Test 3), verifying exception type and `filename` attribute.
+
+3. **Unrelated changes removed** — No `.gitignore` or other out-of-scope changes are included in this story; the implementation is strictly limited to the two files above per PER-63 scope.
+
+---
+
 ## Open Questions
 
 (none)
@@ -382,6 +396,6 @@ assert "Could not find the TLS certificate file" in str(exc_info.value)
 - **Base branch:** `main`
 - **Lint:** `python -m compileall -q .`
 - **Test command:** `python -m pytest tests`
-- **Out of scope:** CA-bundle logic, TLS handshake when files exist, other modules or repos
+- **Out of scope:** CA-bundle logic, TLS handshake when files exist, other modules or repos, unrelated `.gitignore` changes
 - **Backward compatibility guarantee:** `FileNotFoundError` is a subclass of `OSError`; existing exception handling remains valid
 - **Test count:** 3 new unit tests match the 3 verification approaches in breakdown (missing cert, missing key, backward compatibility)
