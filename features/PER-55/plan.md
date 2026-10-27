@@ -10,12 +10,12 @@ A type annotation fix in one file with clear scope and no runtime changes; inlin
 
 ## Steps
 
-1. [ ] **analyst (inline_story)** — Single-file annotation fix with explicit scope and AC needs only an implementable story.
+1. [x] **analyst (inline_story)** — Single-file annotation fix with explicit scope and AC needs only an implementable story.
    - focus: Focus on the type annotation changes in all iter_lines overloads and implementation; verify no runtime behavior changes.
-2. [ ] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
-3. [ ] **dev** _(auto)_ — Fixed execution step.
-4. [ ] **pre_pr_qa** _(auto)_ — Fixed execution step.
-5. [ ] **open_pr** _(auto)_ — Fixed execution step.
+2. [x] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
+3. [x] **dev** _(auto)_ — Fixed execution step.
+4. [x] **pre_pr_qa** _(auto)_ — Fixed execution step.
+5. [x] **open_pr** _(auto)_ — Fixed execution step.
 6. [ ] **pr_review** _(auto)_ — Fixed execution step.
 7. [ ] **merge** _(auto)_ — Fixed execution step.
 

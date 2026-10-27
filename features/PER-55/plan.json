@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "key": "PER-55",
+  "source": "llm",
+  "complexity": "trivial",
+  "summary": "A type annotation fix in one file with clear scope and no runtime changes; inline story alone covers requirements and implementation.",
+  "track_hint": "standard",
+  "steps": [
+    {
+      "node": "analyst",
+      "activity": "inline_story",
+      "why": "Single-file annotation fix with explicit scope and AC needs only an implementable story.",
+      "instructions": "Focus on the type annotation changes in all iter_lines overloads and implementation; verify no runtime behavior changes.",
+      "auto": false,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "architect_gate",
+      "activity": "review",
+      "why": "Human approval of specs and this plan before Dev.",
+      "instructions": "",
+      "auto": true,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "dev",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "pre_pr_qa",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "open_pr",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "pr_review",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    },
+    {
+      "node": "merge",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    }
+  ],
+  "skipped": [
+    {
+      "node": "tpm_gate",
+      "why": "Scope is purely technical with no user-facing or product ambiguity."
+    },
+    {
+      "node": "architect",
+      "why": "No new components, APIs, or cross-repo changes; annotation fix in existing method."
+    },
+    {
+      "node": "scrum_master",
+      "why": "Single story in one repo; no breakdown needed."
+    },
+    {
+      "node": "designer",
+      "why": "Type annotation change requires no file plan or algorithm design."
+    },
+    {
+      "node": "test_architect",
+      "why": "AC already specifies exact test expectations; no edge cases to pin as additional tests."
+    },
+    {
+      "node": "critic",
+      "why": "Only one spec document (the story); nothing to cross-check."
+    }
+  ],
+  "suggested_roles": [],
+  "notes": [],
+  "created_at": "2026-10-27T08:32:35.594702+00:00",
+  "version": 1,
+  "trigger": "ticket",
+  "gate": null,
+  "feedback": [],
+  "feedback_errors": [],
+  "seen_feedback_ids": [],
+  "change_summary": "",
+  "changes": null,
+  "addressed": [],
+  "unresolved_questions": [],
+  "requires_review": true
+}
