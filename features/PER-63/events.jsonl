@@ -10,3 +10,4 @@
 {"at": "2026-10-27T11:52:00.324098+00:00", "node": "planner", "event": "llm_ok", "model": "claude-sonnet-4-5-20250929", "in": 4015, "out": 587, "cache_read": 0, "usd": 0.02085, "ms": 19402, "ok": true, "dry_run": false, "error": null}
 {"at": "2026-10-27T11:55:48.129604+00:00", "node": "designer", "event": "llm_ok", "model": "claude-sonnet-4-5-20250929", "in": 12847, "out": 3275, "cache_read": 0, "usd": 0.087666, "ms": 30441, "ok": true, "dry_run": false, "error": null}
 {"at": "2026-10-27T11:56:36.114451+00:00", "node": "test_architect", "event": "llm_ok", "model": "claude-sonnet-4-5-20250929", "in": 11877, "out": 3275, "cache_read": 0, "usd": 0.084756, "ms": 47967, "ok": true, "dry_run": false, "error": null}
+{"at": "2026-10-27T12:01:52.456213+00:00", "node": "dev", "event": "cursor_run", "ok": false, "status": "error", "error": "agent exit 1"}
