@@ -1,31 +1,32 @@
-# Plan — PER-63 (v3)
+# Plan — PER-63 (v4)
 
-- made from: review feedback (plan_review)
+- made from: review feedback (architect_review)
 - source: LLM planner
 - complexity: simple
 - needs plan review: yes
 - track hint: standard
 
-Single-repo exception contract change: replace two OSError raises with FileNotFoundError in cert_verify, set filename attribute, preserve OSError compatibility, and add tests for edge cases.
+Single-repo exception change: two raises updated for FileNotFoundError with filename attribute; designer must regenerate LLD with corrected test snippets per reviewer feedback.
 
 ## What changed
 
-Added designer step to specify the exact FileNotFoundError raises for missing cert and key paths, including filename attribute handling and CA-bundle preservation.
+Designer reruns to fix test snippets: Test 1–3 now call cert_verify with all four arguments (conn, url, verify, cert) and do not open a TLS connection.
 
-- Added: designer
+- Rerun: designer, test_architect
+- Kept (results reused): analyst
 
 ## Feedback that informed this version
 
-- **PR comment** by pavithrachandran70 on hub#4 `[hub#4:issue-6440350463]`: 2. Add designer
+- **PR comment** by pavithrachandran70 on hub#5 `[hub#5:issue-6441178431]`: 1. On the test snippets (Test 1–3)
 
-This is a caller-visible exception contract, not a class-name swap. Add a designer step that names the exact raise for the missing cert path and the missing key path, including how .filename is set, and that says the CA-bundle raise is unchanged. The skip reason "no API contract" does not match the ticket.
-  - addressed by: Added designer step with focus on naming exact raise statements for missing cert/key paths, filename parameter, and unchanged CA-bundle raise.
+HTTPAdapter.cert_verify is cert_verify(self, conn, url, verify, cert). These samples call adapter.cert_verify(None, missing_cert_path, None), so the missing path is passed as url and cert is never set. Rewrite Test 1, Test 2, and Test 3 to call cert_verify with a stand-in connection, an https URL, verify=True, and cert set to the missing path or the (cert_path, missing_key_path) tuple. Assert exc.filename is that path. The tests must not open a TLS connection.
+  - addressed by: designer rerun with instructions to correct Test 1, Test 2, and Test 3 signatures and assert exc.filename without opening a TLS connection
 
 ## Steps
 
-1. [ ] **analyst (inline_story)** — Ticket scope is concrete: change two specific raises (cert and key), preserve the third (CA-bundle), set filename attribute, and maintain OSError compatibility.
-2. [ ] **designer (lld)** — Caller-visible exception contract: must specify exact raise statements for missing cert and key paths, how filename is set, and that CA-bundle raise is unchanged.
-   - focus: Name the exact FileNotFoundError raise for missing cert path and missing key path, including how the filename parameter is set. Confirm the CA-bundle raise is unchanged. This is an exception contract, not an implementation detail.
+1. [x] **analyst (inline_story)** — Ticket scope is concrete: change two specific raises (cert and key), preserve the third (CA-bundle), set filename attribute, and maintain OSError compatibility.
+2. [ ] **designer (lld)** _(rerun)_ — Caller-visible exception contract: must specify exact raise statements for missing cert and key paths, how filename is set, and that CA-bundle raise is unchanged.
+   - focus: Rewrite Test 1, Test 2, and Test 3 to call cert_verify(conn, url, verify, cert) with a stand-in connection object, an https URL, verify=True, and cert set to the missing path or (cert_path, missing_key_path) tuple. Assert exc.filename is that path. Tests must not open a TLS connection.
 3. [ ] **test_architect (tests)** _(rerun)_ — Acceptance criteria specify multiple edge cases: missing cert, missing key, filename attribute, backward compatibility with OSError catch, and message format for existing tests.
 4. [ ] **architect_gate (review)** _(auto)_ _(rerun)_ — Human approval of specs and this plan before Dev.
 5. [ ] **dev** _(auto)_ — Fixed execution step.
