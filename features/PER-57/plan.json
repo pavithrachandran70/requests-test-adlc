@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "key": "PER-57",
+  "source": "llm",
+  "complexity": "moderate",
+  "summary": "A focused adapter fix for preserving caller-supplied SSLContext; needs requirements analysis, architecture for the pool-key logic change, breakdown into an implementable story, and test design to verify both custom and default contexts.",
+  "track_hint": "standard",
+  "steps": [
+    {
+      "node": "analyst",
+      "activity": "requirements",
+      "why": "Clarify the pool-key construction change and the boundary between custom context preservation and default certificate verification.",
+      "instructions": "",
+      "auto": false,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "architect",
+      "activity": "hld",
+      "why": "Design the conditional logic in _urllib3_request_context and get_connection_with_tls_context so cert_reqs does not override a custom context's verify_mode.",
+      "instructions": "Specify how to detect a custom SSLContext, how to skip cert_reqs override when present, and confirm the default path remains unchanged.",
+      "auto": false,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "scrum_master",
+      "activity": "breakdown",
+      "why": "Convert requirements and HLD into one implementable story with acceptance criteria and technical notes.",
+      "instructions": "",
+      "auto": false,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "designer",
+      "activity": "lld",
+      "why": "Concrete file plan for src/requests/adapters.py changes and the unit test structure.",
+      "instructions": "Detail the conditional branches in _urllib3_request_context, the pool manager call site, and the test that mocks the pool without opening a socket.",
+      "auto": false,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "test_architect",
+      "activity": "tests",
+      "why": "Map each acceptance criterion to a test case: custom context preserved, default verify=True enforced, existing adapter tests pass.",
+      "instructions": "",
+      "auto": false,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "merge_pack",
+      "activity": "pack",
+      "why": "Pack per-ticket specs into merged_plan.md for review.",
+      "instructions": "",
+      "auto": true,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "architect_gate",
+      "activity": "review",
+      "why": "Human approval of specs and this plan before Dev.",
+      "instructions": "",
+      "auto": true,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "dev",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "pre_pr_qa",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "open_pr",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "done",
+      "rerun": false
+    },
+    {
+      "node": "pr_review",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    },
+    {
+      "node": "merge",
+      "activity": null,
+      "why": "Fixed execution step.",
+      "instructions": "",
+      "auto": true,
+      "status": "pending",
+      "rerun": false
+    }
+  ],
+  "skipped": [
+    {
+      "node": "tpm_gate",
+      "why": "Scope is clear and technical; no product ambiguity or user-facing decision."
+    },
+    {
+      "node": "critic",
+      "why": "Only one story artifact to produce; no multi-document consistency to check."
+    }
+  ],
+  "suggested_roles": [],
+  "notes": [
+    "attempt 1: designer needs ['stories'] but no earlier step produces it (plan must produce stories: analyst `inline_story` or scrum_master)"
+  ],
+  "created_at": "2026-10-27T09:53:44.190127+00:00",
+  "version": 1,
+  "trigger": "ticket",
+  "gate": null,
+  "feedback": [],
+  "feedback_errors": [],
+  "seen_feedback_ids": [],
+  "change_summary": "",
+  "changes": null,
+  "addressed": [],
+  "unresolved_questions": [],
+  "requires_review": true
+}

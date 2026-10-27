@@ -1,0 +1,9 @@
+Custom `SSLContext` objects passed to `HTTPAdapter.init_poolmanager` are no longer overwritten when the pool key is built.
+
+`_urllib3_request_context` in `src/requests/adapters.py` now looks for `ssl_context` on the pool manager. When one is present, it leaves `cert_reqs` out of the pool kwargs so urllib3 keeps that context's `verify_mode`. With no custom context, `verify=True` still sets `cert_reqs` to `"CERT_REQUIRED"` (this tree's urllib3 string form of `ssl.CERT_REQUIRED`). CA bundle paths and client certificates are unchanged.
+
+`tests/test_adapters.py` covers both cases without opening a socket. `PYTHONPATH=src python -m pytest tests/test_adapters.py` — 3 passed.
+
+Files changed:
+- `src/requests/adapters.py`
+- `tests/test_adapters.py`
