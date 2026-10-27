@@ -78,3 +78,15 @@
 2026-10-27T10:18:18.808875+00:00 heartbeat dev
 2026-10-27T10:18:18.808957+00:00 node start dev
 2026-10-27T10:18:18.904193+00:00 dev cursor 01-demo-test attempt=1
+2026-10-27T10:22:54.103980+00:00 node end dev waiting=None
+2026-10-27T10:22:54.109037+00:00 heartbeat pre_pr_qa
+2026-10-27T10:22:54.109252+00:00 node start pre_pr_qa
+2026-10-27T10:22:54.109890+00:00 node end pre_pr_qa waiting=None
+2026-10-27T10:22:54.117488+00:00 heartbeat open_pr
+2026-10-27T10:22:54.117595+00:00 node start open_pr
+2026-10-27T10:23:00.536471+00:00 node end open_pr waiting=None
+2026-10-27T10:23:00.543384+00:00 heartbeat pr_review
+2026-10-27T10:23:00.543473+00:00 node start pr_review
+2026-10-27T10:23:01.393315+00:00 heartbeat reviewer
+2026-10-27T10:23:17.894087+00:00 reviewer llm model=claude-sonnet-4-5-20250929 in=11017 out=526 usd=0.040941
+2026-10-27T10:23:20.836343+00:00 node end pr_review waiting=feature_pr_human
