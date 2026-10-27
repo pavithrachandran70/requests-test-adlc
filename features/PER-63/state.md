@@ -1,15 +1,15 @@
 ---
 schema_version: 1
 key: PER-63
-status: in_development
-current_node: dev
+status: escalated
+current_node: pr_review
 track: standard
 involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
-lease_until: '2026-10-29T11:57:36.506882+00:00'
-revision: 143
+lease_until: '2026-10-29T12:36:30.633765+00:00'
+revision: 183
 hub_sha: null
 ticket_hash: 0b4251e6786d97fc
 jira_hash: 0b4251e6786d97fc
@@ -22,7 +22,7 @@ stories:
 child_ticket_keys: []
 critic_iterations: 0
 dev_retries: 0
-pr_revision_rounds: 1
+pr_revision_rounds: 2
 gate_rounds:
   plan: 1
 pr_ids:
@@ -30,10 +30,10 @@ pr_ids:
   hub: '5'
   hub_plan: '6'
   demo-test: '3'
-waiting_for: null
-tokens_in: 94885
-tokens_out: 21682
-cost_anthropic_usd: 0.606651
+waiting_for: feature_pr_human
+tokens_in: 120768
+tokens_out: 28476
+cost_anthropic_usd: 0.748354
 history:
 - node: intake
   note: snapshot written
@@ -179,6 +179,141 @@ history:
 - node: dev
   note: done 01-demo-test
   at: '2026-10-27T12:24:49.087159+00:00'
+- node: dev
+  note: checkpoint push rejected
+  at: '2026-10-27T12:24:51.086920+00:00'
+- node: open_pr
+  note: push demo-test ok
+  at: '2026-10-27T12:24:53.151993+00:00'
+- node: pr_review
+  note: still_open demo-test:6441627532
+  at: '2026-10-27T12:24:59.644165+00:00'
+- node: pr_review
+  note: still_open demo-test:4388544199
+  at: '2026-10-27T12:25:05.127749+00:00'
+- node: pr_review
+  note: post-fix re-review (auto_fix=False)
+  at: '2026-10-27T12:25:05.127784+00:00'
+- node: pr_review
+  note: diff loaded demo-test chars=5524
+  at: '2026-10-27T12:25:05.960226+00:00'
+- node: pr_review
+  note: 'inline review demo-test: 6 comment(s)'
+  at: '2026-10-27T12:25:44.554554+00:00'
+- node: pr_review
+  note: demo-test:needs_human:moderate:**AC1 gap:** The `FileNotFoundError` constructor
+    receives three positional argum
+  at: '2026-10-27T12:25:49.459816+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:needs_human
+  at: '2026-10-27T12:25:49.459840+00:00'
+- node: pr_review
+  note: demo-test:needs_human:moderate:**AC2 gap:** Same message construction divergence
+    as AC1. The original `OSError`
+  at: '2026-10-27T12:25:51.228859+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:needs_human
+  at: '2026-10-27T12:25:51.228880+00:00'
+- node: pr_review
+  note: demo-test:needs_human:moderate:**AC3 verification:** The test was updated
+    from `pytest.raises(IOError)` to `pyt
+  at: '2026-10-27T12:25:53.316654+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:needs_human
+  at: '2026-10-27T12:25:53.316667+00:00'
+- node: pr_review
+  note: demo-test:needs_human:minor:**AC2 verification (message wording):** The test
+    asserts `"Could not find the TL
+  at: '2026-10-27T12:25:55.139361+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:needs_human
+  at: '2026-10-27T12:25:55.139396+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**AC1/AC2 test design:** The test `test_file_not_found_error_is_caught_by_oserro
+  at: '2026-10-27T12:25:56.885591+00:00'
+- node: pr_review
+  note: demo-test:not_an_issue:None:**Test isolation:** The `_Conn` stand-in class
+    is defined at module level, but i
+  at: '2026-10-27T12:26:00.918780+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:not_an_issue
+  at: '2026-10-27T12:26:00.918798+00:00'
+- node: pr_review
+  note: awaiting feature_pr_human
+  at: '2026-10-27T12:26:01.702943+00:00'
+- node: pr_review
+  note: review fix done handled=2
+  at: '2026-10-27T12:26:01.745072+00:00'
+- node: catch_up
+  note: "unrepaired feature PR comments \u2192 fix"
+  at: '2026-10-27T12:36:15.371775+00:00'
+- node: catch_up
+  note: "unrepaired feature PR comments \u2192 fix"
+  at: '2026-10-27T12:36:30.633815+00:00'
+- node: pr_review
+  note: fix:demo-test:needs_human:minor:**AC2 verification (message wording):** The
+    test asserts `"Could not find the TL
+  at: '2026-10-27T12:36:34.900730+00:00'
+- node: pr_review
+  note: fix:demo-test:issue:minor:**AC1/AC2 test design:** The test `test_file_not_found_error_is_caught_by_oserro
+  at: '2026-10-27T12:36:38.352895+00:00'
+- node: pr_review
+  note: fix:demo-test:not_an_issue:None:**Test isolation:** The `_Conn` stand-in class
+    is defined at module level, but i
+  at: '2026-10-27T12:36:42.362123+00:00'
+- node: pr_review
+  note: pr_revision exhausted
+  at: '2026-10-27T12:36:44.128593+00:00'
+- node: pr_review
+  note: feature PR human approved via CLI
+  at: '2026-10-27T12:40:16.607707+00:00'
+- node: pr_review
+  note: feature PR human approved via CLI
+  at: '2026-10-27T12:45:57.589439+00:00'
+- node: pr_review
+  note: diff loaded demo-test chars=6548
+  at: '2026-10-27T12:50:34.918161+00:00'
+- node: pr_review
+  note: 'inline review demo-test: 22 comment(s)'
+  at: '2026-10-27T12:51:46.098645+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**AC1/AC2 test design:** The test `test_file_not_found_error_is_caught_by_oserro
+  at: '2026-10-27T12:51:52.842962+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** FileNotFoundError constructor
+    receives three positional a
+  at: '2026-10-27T12:51:57.169611+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** Same three-arg FileNotFoundError
+    constructor issue as abo
+  at: '2026-10-27T12:52:01.341870+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** Test asserts exc.errno ==
+    errno.ENOENT and exc.filename =
+  at: '2026-10-27T12:52:05.489094+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**Trigger Condition:** Test asserts exc.errno == errno.ENOENT
+    and exc.filename =
+  at: '2026-10-27T12:52:09.202208+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**Trigger Condition:** Test catches 'except OSError'
+    in a bare try/except and se
+  at: '2026-10-27T12:52:13.418009+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**Trigger Condition:** Temporary cert file created with
+    delete=False but cleanup
+  at: '2026-10-27T12:52:16.930627+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** Test does not verify that
+    the exception message format ma
+  at: '2026-10-27T12:52:20.550696+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** Test does not verify that
+    the exception message format ma
+  at: '2026-10-27T12:52:24.748742+00:00'
+- node: pr_review
+  note: pr_revision exhausted
+  at: '2026-10-27T12:52:26.504987+00:00'
 ---
 
 # Feature state
