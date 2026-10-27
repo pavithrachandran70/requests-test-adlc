@@ -1,3 +1,5 @@
-**Wrong scope:** `.gitignore` changes are unrelated to PER-63's acceptance criteria. The story scope is `src/requests/adapters.py` (two exception raises) and `tests/test_adapters.py` (new tests). Tooling ignore patterns are out of scope.
+**Trigger Condition:** Same three-arg FileNotFoundError constructor issue as above (missing key path raise)
 
-**Consequence:** The PR addresses a different concern (dev environment hygiene) and does not implement the feature.
+**Guard Snippet:** Use FileNotFoundError(message) and set .filename attribute explicitly, or use two-arg form FileNotFoundError(errno, message) which Python will map to .errno and .strerror, then set .filename separately
+
+**Potential Consequence:** Runtime TypeError or malformed exception at call site; AC2's contract (.filename holds missing key path) breaks

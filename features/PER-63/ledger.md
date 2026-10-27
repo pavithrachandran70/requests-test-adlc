@@ -14,3 +14,4 @@ JSON:{"key": "pr-comment-fixed:PER-63:demo-test:4388629792", "intent": "needs_hu
 JSON:{"key": "pr-comment-fixed:PER-63:demo-test:4388629797", "intent": "needs_human", "result": "4388629797", "at": "2026-10-27T12:36:31.550360+00:00"}
 JSON:{"key": "pr-comment-fixed:PER-63:demo-test:4388629802", "intent": "needs_human", "result": "4388629802", "at": "2026-10-27T12:36:35.789881+00:00"}
 JSON:{"key": "pr-comment-fixed:PER-63:demo-test:4388629816", "intent": "dismiss", "result": "4388629816", "at": "2026-10-27T12:36:44.127748+00:00"}
+JSON:{"key": "pr-comment-fixed:PER-63:demo-test:4388865172", "intent": "major_human", "result": "4388865172", "at": "2026-10-27T13:01:05.205757+00:00"}

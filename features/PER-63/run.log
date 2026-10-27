@@ -104,3 +104,17 @@
 2026-10-27T12:59:33.230711+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=331 out=70 usd=0.000681
 2026-10-27T12:59:37.194231+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=332 out=74 usd=0.000702
 2026-10-27T12:59:39.031630+00:00 node end pr_review waiting=feature_pr_human
+2026-10-27T13:00:32.237448+00:00 heartbeat pr_review
+2026-10-27T13:00:32.237497+00:00 node start pr_review
+2026-10-27T13:00:33.052113+00:00 heartbeat reviewer
+2026-10-27T13:00:49.777368+00:00 reviewer llm model=claude-sonnet-4-5-20250929 in=7269 out=803 usd=0.033852
+2026-10-27T13:00:58.092898+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=403 out=69 usd=0.000748
+2026-10-27T13:01:01.662127+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=369 out=80 usd=0.000769
+2026-10-27T13:01:05.204284+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=322 out=67 usd=0.000657
+2026-10-27T13:01:09.262565+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=328 out=90 usd=0.000778
+2026-10-27T13:01:13.102140+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=329 out=65 usd=0.000654
+2026-10-27T13:01:16.986547+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=380 out=77 usd=0.000765
+2026-10-27T13:01:20.945930+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=350 out=72 usd=0.00071
+2026-10-27T13:01:24.896926+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=331 out=80 usd=0.000731
+2026-10-27T13:01:28.764553+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=332 out=68 usd=0.000672
+2026-10-27T13:01:31.055237+00:00 node end pr_review waiting=feature_pr_human

@@ -8,8 +8,8 @@ involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
-lease_until: '2026-10-29T12:58:18.192120+00:00'
-revision: 196
+lease_until: '2026-10-29T13:00:30.138385+00:00'
+revision: 204
 hub_sha: null
 ticket_hash: 0b4251e6786d97fc
 jira_hash: 0b4251e6786d97fc
@@ -31,9 +31,9 @@ pr_ids:
   hub_plan: '6'
   demo-test: '3'
 waiting_for: feature_pr_human
-tokens_in: 131181
-tokens_out: 30784
-cost_anthropic_usd: 0.800545
+tokens_in: 141594
+tokens_out: 32255
+cost_anthropic_usd: 0.840881
 history:
 - node: intake
   note: snapshot written
@@ -364,6 +364,59 @@ history:
 - node: pr_review
   note: pr_revision exhausted
   at: '2026-10-27T12:59:39.008170+00:00'
+- node: pr_review
+  note: checkpoint push rejected
+  at: '2026-10-27T12:59:41.080621+00:00'
+- node: pr_review
+  note: "forge unlocked feature_pr_human \u2192 resume"
+  at: '2026-10-27T13:00:30.138420+00:00'
+- node: pr_review
+  note: diff loaded demo-test chars=6548
+  at: '2026-10-27T13:00:33.051307+00:00'
+- node: pr_review
+  note: 'inline review demo-test: 8 comment(s)'
+  at: '2026-10-27T13:00:53.504907+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**AC1/AC2 test design:** The test `test_file_not_found_error_is_caught_by_oserro
+  at: '2026-10-27T13:00:58.093441+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** FileNotFoundError constructor
+    receives three positional a
+  at: '2026-10-27T13:01:01.662429+00:00'
+- node: pr_review
+  note: demo-test:issue:major:**Trigger Condition:** Same three-arg FileNotFoundError
+    constructor issue as abo
+  at: '2026-10-27T13:01:05.204782+00:00'
+- node: pr_review
+  note: "major issue classified \u2192 human (deferred; continue auto-fix)"
+  at: '2026-10-27T13:01:07.066956+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**Trigger Condition:** Test asserts exc.errno == errno.ENOENT
+    and exc.filename =
+  at: '2026-10-27T13:01:09.262801+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**Trigger Condition:** Test asserts exc.errno == errno.ENOENT
+    and exc.filename =
+  at: '2026-10-27T13:01:13.102442+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**Trigger Condition:** Test catches 'except OSError'
+    in a bare try/except and se
+  at: '2026-10-27T13:01:16.986764+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**Trigger Condition:** Temporary cert file created with
+    delete=False but cleanup
+  at: '2026-10-27T13:01:20.946194+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** Test does not verify that
+    the exception message format ma
+  at: '2026-10-27T13:01:24.897103+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** Test does not verify that
+    the exception message format ma
+  at: '2026-10-27T13:01:28.765136+00:00'
+- node: pr_review
+  note: pr_revision exhausted
+  at: '2026-10-27T13:01:31.033850+00:00'
 ---
 
 # Feature state
