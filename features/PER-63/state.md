@@ -8,8 +8,8 @@ involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
-lease_until: '2026-10-29T12:36:30.633765+00:00'
-revision: 183
+lease_until: '2026-10-29T12:58:18.192120+00:00'
+revision: 196
 hub_sha: null
 ticket_hash: 0b4251e6786d97fc
 jira_hash: 0b4251e6786d97fc
@@ -31,9 +31,9 @@ pr_ids:
   hub_plan: '6'
   demo-test: '3'
 waiting_for: feature_pr_human
-tokens_in: 120768
-tokens_out: 28476
-cost_anthropic_usd: 0.748354
+tokens_in: 131181
+tokens_out: 30784
+cost_anthropic_usd: 0.800545
 history:
 - node: intake
   note: snapshot written
@@ -314,6 +314,56 @@ history:
 - node: pr_review
   note: pr_revision exhausted
   at: '2026-10-27T12:52:26.504987+00:00'
+- node: pr_review
+  note: checkpoint push rejected
+  at: '2026-10-27T12:52:28.500456+00:00'
+- node: pr_review
+  note: "forge unlocked feature_pr_human \u2192 resume"
+  at: '2026-10-27T12:58:18.192156+00:00'
+- node: pr_review
+  note: diff loaded demo-test chars=6548
+  at: '2026-10-27T12:58:21.180405+00:00'
+- node: pr_review
+  note: 'inline review demo-test: 8 comment(s)'
+  at: '2026-10-27T12:59:02.196767+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**AC1/AC2 test design:** The test `test_file_not_found_error_is_caught_by_oserro
+  at: '2026-10-27T12:59:06.746359+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** FileNotFoundError constructor
+    receives three positional a
+  at: '2026-10-27T12:59:10.707595+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** Same three-arg FileNotFoundError
+    constructor issue as abo
+  at: '2026-10-27T12:59:14.682749+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**Trigger Condition:** Test asserts exc.errno == errno.ENOENT
+    and exc.filename =
+  at: '2026-10-27T12:59:18.384383+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**Trigger Condition:** Test asserts exc.errno == errno.ENOENT
+    and exc.filename =
+  at: '2026-10-27T12:59:21.841156+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**Trigger Condition:** Test catches 'except OSError'
+    in a bare try/except and se
+  at: '2026-10-27T12:59:25.711131+00:00'
+- node: pr_review
+  note: demo-test:issue:minor:**Trigger Condition:** Temporary cert file created with
+    delete=False but cleanup
+  at: '2026-10-27T12:59:29.456002+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** Test does not verify that
+    the exception message format ma
+  at: '2026-10-27T12:59:33.231687+00:00'
+- node: pr_review
+  note: demo-test:issue:moderate:**Trigger Condition:** Test does not verify that
+    the exception message format ma
+  at: '2026-10-27T12:59:37.194808+00:00'
+- node: pr_review
+  note: pr_revision exhausted
+  at: '2026-10-27T12:59:39.008170+00:00'
 ---
 
 # Feature state
