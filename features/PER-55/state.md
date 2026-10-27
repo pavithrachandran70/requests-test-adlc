@@ -1,15 +1,15 @@
 ---
 schema_version: 1
 key: PER-55
-status: in_development
-current_node: dev
+status: pr_reviewed
+current_node: pr_review
 track: standard
 involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
 lease_until: '2026-10-29T08:37:08.163087+00:00'
-revision: 33
+revision: 38
 hub_sha: null
 ticket_hash: 6f1340262cf32778
 jira_hash: 6f1340262cf32778
@@ -26,10 +26,11 @@ pr_revision_rounds: 0
 gate_rounds: {}
 pr_ids:
   hub_plan: '1'
-waiting_for: null
-tokens_in: 22649
-tokens_out: 2588
-cost_anthropic_usd: 0.106427
+  demo-test: '1'
+waiting_for: feature_pr_human
+tokens_in: 28096
+tokens_out: 2769
+cost_anthropic_usd: 0.125483
 history:
 - node: intake
   note: snapshot written
@@ -71,6 +72,24 @@ history:
 - node: dev
   note: done 01-demo-test
   at: '2026-10-27T08:52:19.539725+00:00'
+- node: dev
+  note: checkpoint push rejected
+  at: '2026-10-27T08:52:21.697083+00:00'
+- node: pre_pr_qa
+  note: report written
+  at: '2026-10-27T08:52:21.708079+00:00'
+- node: open_pr
+  note: push demo-test ok
+  at: '2026-10-27T08:52:28.476558+00:00'
+- node: open_pr
+  note: PRs opened demo-test:1
+  at: '2026-10-27T08:52:28.476600+00:00'
+- node: pr_review
+  note: diff loaded demo-test chars=1408
+  at: '2026-10-27T08:52:29.386898+00:00'
+- node: pr_review
+  note: awaiting feature_pr_human
+  at: '2026-10-27T08:52:42.237904+00:00'
 ---
 
 # Feature state
