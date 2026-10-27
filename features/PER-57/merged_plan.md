@@ -14,7 +14,7 @@ Execution order (1 ticket(s)):
 
 # Story summaries
 
-- `01-demo-test`: Story 01-demo-test LLD: Preserve custom SSLContext in HTTPAdapter pool-key construction
+- `01-demo-test`: Low-Level Design — Story 01-demo-test: Preserve custom SSLContext in HTTPAdapter pool-key construction
 
 ---
 

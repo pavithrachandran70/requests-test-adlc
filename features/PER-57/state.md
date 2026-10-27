@@ -9,7 +9,7 @@ involved_repos:
 depends_on: []
 owner: pavc
 lease_until: '2026-10-29T10:08:17.759840+00:00'
-revision: 40
+revision: 38
 hub_sha: null
 ticket_hash: 595ace39d11ac417
 jira_hash: 595ace39d11ac417
@@ -27,12 +27,10 @@ pr_revision_rounds: 0
 gate_rounds: {}
 pr_ids:
   hub_plan: '2'
-  hub_arch: '3'
-  hub: '3'
 waiting_for: architect_review
-tokens_in: 92070
-tokens_out: 15610
-cost_anthropic_usd: 0.510032
+tokens_in: 95898
+tokens_out: 18873
+cost_anthropic_usd: 0.570461
 history:
 - node: intake
   note: snapshot written
@@ -55,31 +53,31 @@ history:
   at: '2026-10-27T10:08:17.760276+00:00'
 - node: analyst
   note: wrote requirements.md
-  at: '2026-10-27T10:08:43.126718+00:00'
+  at: '2026-10-27T10:08:41.851050+00:00'
 - node: analyst
   note: proposed_tickets=1
-  at: '2026-10-27T10:08:49.470860+00:00'
+  at: '2026-10-27T10:08:45.546902+00:00'
 - node: architect
   note: wrote hld.md
-  at: '2026-10-27T10:09:28.648344+00:00'
+  at: '2026-10-27T10:09:37.225119+00:00'
 - node: architect
   note: specs=['1']
-  at: '2026-10-27T10:10:13.100644+00:00'
+  at: '2026-10-27T10:10:19.487042+00:00'
 - node: scrum_master
   note: stories=['01-demo-test']; linear=['PER-62']
-  at: '2026-10-27T10:10:49.528970+00:00'
+  at: '2026-10-27T10:11:06.146953+00:00'
 - node: designer
   note: lld updated
-  at: '2026-10-27T10:11:38.673848+00:00'
+  at: '2026-10-27T10:12:17.706423+00:00'
 - node: test_architect
   note: tests appended
-  at: '2026-10-27T10:12:29.379513+00:00'
+  at: '2026-10-27T10:13:26.328351+00:00'
 - node: merge_pack
   note: merged 1 ticket(s)
-  at: '2026-10-27T10:12:29.384873+00:00'
+  at: '2026-10-27T10:13:26.335133+00:00'
 - node: architect_gate
-  note: awaiting human hub PR approval
-  at: '2026-10-27T10:12:36.421818+00:00'
+  note: awaiting adlc review approve
+  at: '2026-10-27T10:13:26.339482+00:00'
 ---
 
 # Feature state
