@@ -18,7 +18,7 @@ A focused adapter fix for preserving caller-supplied SSLContext; needs requireme
    - focus: Detail the conditional branches in _urllib3_request_context, the pool manager call site, and the test that mocks the pool without opening a socket.
 5. [x] **test_architect (tests)** — Map each acceptance criterion to a test case: custom context preserved, default verify=True enforced, existing adapter tests pass.
 6. [x] **merge_pack (pack)** _(auto)_ — Pack per-ticket specs into merged_plan.md for review.
-7. [ ] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
+7. [x] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
 8. [ ] **dev** _(auto)_ — Fixed execution step.
 9. [ ] **pre_pr_qa** _(auto)_ — Fixed execution step.
 10. [ ] **open_pr** _(auto)_ — Fixed execution step.

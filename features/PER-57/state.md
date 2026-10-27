@@ -1,20 +1,20 @@
 ---
 schema_version: 1
 key: PER-57
-status: waiting_architect_review
-current_node: architect_gate
+status: in_development
+current_node: dev
 track: standard
 involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
 lease_until: '2026-10-29T10:08:17.759840+00:00'
-revision: 38
+revision: 50
 hub_sha: null
 ticket_hash: 595ace39d11ac417
 jira_hash: 595ace39d11ac417
-tpm_approved: false
-specs_locked: false
+tpm_approved: true
+specs_locked: true
 skills_lock:
   bmad: 1cbcfa272fe65787c06a1fa164a901f46117cca7
 stories:
@@ -27,7 +27,7 @@ pr_revision_rounds: 0
 gate_rounds: {}
 pr_ids:
   hub_plan: '2'
-waiting_for: architect_review
+waiting_for: null
 tokens_in: 95898
 tokens_out: 18873
 cost_anthropic_usd: 0.570461
@@ -78,6 +78,18 @@ history:
 - node: architect_gate
   note: awaiting adlc review approve
   at: '2026-10-27T10:13:26.339482+00:00'
+- node: architect_gate
+  note: checkpoint push rejected
+  at: '2026-10-27T10:13:28.456259+00:00'
+- node: architect_gate
+  note: approved via CLI
+  at: '2026-10-27T10:18:08.117300+00:00'
+- node: dev
+  note: starting
+  at: '2026-10-27T10:18:18.809169+00:00'
+- node: dev
+  note: done 01-demo-test
+  at: '2026-10-27T10:22:52.138950+00:00'
 ---
 
 # Feature state
