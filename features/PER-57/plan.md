@@ -10,14 +10,14 @@ A focused adapter fix for preserving caller-supplied SSLContext; needs requireme
 
 ## Steps
 
-1. [ ] **analyst (requirements)** — Clarify the pool-key construction change and the boundary between custom context preservation and default certificate verification.
-2. [ ] **architect (hld)** — Design the conditional logic in _urllib3_request_context and get_connection_with_tls_context so cert_reqs does not override a custom context's verify_mode.
+1. [x] **analyst (requirements)** — Clarify the pool-key construction change and the boundary between custom context preservation and default certificate verification.
+2. [x] **architect (hld)** — Design the conditional logic in _urllib3_request_context and get_connection_with_tls_context so cert_reqs does not override a custom context's verify_mode.
    - focus: Specify how to detect a custom SSLContext, how to skip cert_reqs override when present, and confirm the default path remains unchanged.
-3. [ ] **scrum_master (breakdown)** — Convert requirements and HLD into one implementable story with acceptance criteria and technical notes.
-4. [ ] **designer (lld)** — Concrete file plan for src/requests/adapters.py changes and the unit test structure.
+3. [x] **scrum_master (breakdown)** — Convert requirements and HLD into one implementable story with acceptance criteria and technical notes.
+4. [x] **designer (lld)** — Concrete file plan for src/requests/adapters.py changes and the unit test structure.
    - focus: Detail the conditional branches in _urllib3_request_context, the pool manager call site, and the test that mocks the pool without opening a socket.
-5. [ ] **test_architect (tests)** — Map each acceptance criterion to a test case: custom context preserved, default verify=True enforced, existing adapter tests pass.
-6. [ ] **merge_pack (pack)** _(auto)_ — Pack per-ticket specs into merged_plan.md for review.
+5. [x] **test_architect (tests)** — Map each acceptance criterion to a test case: custom context preserved, default verify=True enforced, existing adapter tests pass.
+6. [x] **merge_pack (pack)** _(auto)_ — Pack per-ticket specs into merged_plan.md for review.
 7. [ ] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
 8. [ ] **dev** _(auto)_ — Fixed execution step.
 9. [ ] **pre_pr_qa** _(auto)_ — Fixed execution step.
