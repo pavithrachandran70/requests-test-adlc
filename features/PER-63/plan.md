@@ -23,10 +23,10 @@ This is a caller-visible exception contract, not a class-name swap. Add a design
 
 ## Steps
 
-1. [ ] **analyst (inline_story)** — Ticket scope is concrete: change two specific raises (cert and key), preserve the third (CA-bundle), set filename attribute, and maintain OSError compatibility.
-2. [ ] **designer (lld)** — Caller-visible exception contract: must specify exact raise statements for missing cert and key paths, how filename is set, and that CA-bundle raise is unchanged.
+1. [x] **analyst (inline_story)** — Ticket scope is concrete: change two specific raises (cert and key), preserve the third (CA-bundle), set filename attribute, and maintain OSError compatibility.
+2. [x] **designer (lld)** — Caller-visible exception contract: must specify exact raise statements for missing cert and key paths, how filename is set, and that CA-bundle raise is unchanged.
    - focus: Name the exact FileNotFoundError raise for missing cert path and missing key path, including how the filename parameter is set. Confirm the CA-bundle raise is unchanged. This is an exception contract, not an implementation detail.
-3. [ ] **test_architect (tests)** _(rerun)_ — Acceptance criteria specify multiple edge cases: missing cert, missing key, filename attribute, backward compatibility with OSError catch, and message format for existing tests.
+3. [x] **test_architect (tests)** — Acceptance criteria specify multiple edge cases: missing cert, missing key, filename attribute, backward compatibility with OSError catch, and message format for existing tests.
 4. [ ] **architect_gate (review)** _(auto)_ _(rerun)_ — Human approval of specs and this plan before Dev.
 5. [ ] **dev** _(auto)_ — Fixed execution step.
 6. [ ] **pre_pr_qa** _(auto)_ — Fixed execution step.
