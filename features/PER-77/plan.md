@@ -10,7 +10,7 @@ Single-file bugfix in multipart field-name handling with a focused unit test; no
 
 ## Steps
 
-1. [ ] **analyst (inline_story)** — Convert the ticket into an implementable story with Given/When/Then acceptance criteria and tech notes for the developer.
+1. [x] **analyst (inline_story)** — Convert the ticket into an implementable story with Given/When/Then acceptance criteria and tech notes for the developer.
    - focus: Focus on the precise behavior change in _encode_files (coerce field names to strings), the test requirements (no network calls, int keys in data and files), and preserving urlencoded behavior.
 2. [ ] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
 3. [ ] **dev** _(auto)_ — Fixed execution step.
