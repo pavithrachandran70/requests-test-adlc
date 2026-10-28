@@ -1,20 +1,20 @@
 ---
 schema_version: 1
 key: PER-77
-status: waiting_architect_review
-current_node: architect_gate
+status: in_development
+current_node: dev
 track: standard
 involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
-lease_until: '2026-10-30T12:19:27.699838+00:00'
-revision: 12
+lease_until: '2026-10-30T12:26:06.317254+00:00'
+revision: 32
 hub_sha: null
 ticket_hash: 0847fb326ac5802a
 jira_hash: 0847fb326ac5802a
-tpm_approved: false
-specs_locked: false
+tpm_approved: true
+specs_locked: true
 skills_lock:
   bmad: 1cbcfa272fe65787c06a1fa164a901f46117cca7
 stories:
@@ -28,10 +28,10 @@ pr_ids:
   hub_plan: '13'
   hub_arch: '14'
   hub: '14'
-waiting_for: architect_review
-tokens_in: 23119
-tokens_out: 3261
-cost_anthropic_usd: 0.117928
+waiting_for: dirty_worktree
+tokens_in: 23274
+tokens_out: 3837
+cost_anthropic_usd: 0.127033
 history:
 - node: intake
   note: snapshot written
@@ -52,15 +52,42 @@ history:
 - node: plan_review
   note: "forge unlocked plan_review \u2192 resume"
   at: '2026-10-28T12:19:27.699903+00:00'
+- node: plan_review
+  note: "forge unlocked plan_review \u2192 resume"
+  at: '2026-10-28T12:19:28.455270+00:00'
 - node: analyst
   note: wrote requirements.md
-  at: '2026-10-28T12:19:45.159790+00:00'
+  at: '2026-10-28T12:19:49.675219+00:00'
 - node: analyst
   note: quick inline story
-  at: '2026-10-28T12:20:14.647517+00:00'
+  at: '2026-10-28T12:20:21.854510+00:00'
 - node: architect_gate
   note: awaiting human hub PR approval
-  at: '2026-10-28T12:20:29.665545+00:00'
+  at: '2026-10-28T12:20:29.554473+00:00'
+- node: architect_gate
+  note: checkpoint push rejected
+  at: '2026-10-28T12:20:32.962094+00:00'
+- node: architect_gate
+  note: approved via hub PR (reconcile)
+  at: '2026-10-28T12:26:01.326461+00:00'
+- node: architect_gate
+  note: "forge unlocked architect_review \u2192 resume"
+  at: '2026-10-28T12:26:01.344002+00:00'
+- node: dev
+  note: starting
+  at: '2026-10-28T12:26:02.539281+00:00'
+- node: catch_up
+  note: manual commit 3c7baaa05ab4aa49cc819ce3a819d260de19c157
+  at: '2026-10-28T12:26:06.287877+00:00'
+- node: catch_up
+  note: "forge unlocked architect_review \u2192 resume"
+  at: '2026-10-28T12:26:06.317322+00:00'
+- node: dev
+  note: starting
+  at: '2026-10-28T12:26:07.524333+00:00'
+- node: dev
+  note: dirty worktree stashed
+  at: '2026-10-28T12:26:07.595653+00:00'
 ---
 
 # Feature state
