@@ -8,8 +8,8 @@ involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
-lease_until: '2026-10-30T12:19:28.455230+00:00'
-revision: 14
+lease_until: '2026-10-30T12:19:27.699838+00:00'
+revision: 12
 hub_sha: null
 ticket_hash: 0847fb326ac5802a
 jira_hash: 0847fb326ac5802a
@@ -29,9 +29,9 @@ pr_ids:
   hub_arch: '14'
   hub: '14'
 waiting_for: architect_review
-tokens_in: 23274
-tokens_out: 3837
-cost_anthropic_usd: 0.127033
+tokens_in: 23119
+tokens_out: 3261
+cost_anthropic_usd: 0.117928
 history:
 - node: intake
   note: snapshot written
@@ -52,18 +52,15 @@ history:
 - node: plan_review
   note: "forge unlocked plan_review \u2192 resume"
   at: '2026-10-28T12:19:27.699903+00:00'
-- node: plan_review
-  note: "forge unlocked plan_review \u2192 resume"
-  at: '2026-10-28T12:19:28.455270+00:00'
 - node: analyst
   note: wrote requirements.md
-  at: '2026-10-28T12:19:49.675219+00:00'
+  at: '2026-10-28T12:19:45.159790+00:00'
 - node: analyst
   note: quick inline story
-  at: '2026-10-28T12:20:21.854510+00:00'
+  at: '2026-10-28T12:20:14.647517+00:00'
 - node: architect_gate
   note: awaiting human hub PR approval
-  at: '2026-10-28T12:20:29.554473+00:00'
+  at: '2026-10-28T12:20:29.665545+00:00'
 ---
 
 # Feature state
