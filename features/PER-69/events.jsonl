@@ -1,0 +1,5 @@
+{"at": "2026-10-28T07:05:17.511239+00:00", "node": "triage", "event": "llm_ok", "model": "claude-haiku-4-5-20251001", "in": 66, "out": 4, "cache_read": 0, "usd": 8.6e-05, "ms": 3470, "ok": true, "dry_run": false, "error": null}
+{"at": "2026-10-28T07:05:18.512132+00:00", "node": "triage", "event": "llm_ok", "model": "claude-haiku-4-5-20251001", "in": 66, "out": 4, "cache_read": 0, "usd": 8.6e-05, "ms": 997, "ok": true, "dry_run": false, "error": null}
+{"at": "2026-10-28T07:05:28.971047+00:00", "node": "planner", "event": "llm_ok", "model": "claude-sonnet-4-5-20250929", "in": 2611, "out": 449, "cache_read": 0, "usd": 0.014568, "ms": 10447, "ok": true, "dry_run": false, "error": null}
+{"at": "2026-10-28T07:52:09.031108+00:00", "node": "analyst", "event": "llm_ok", "model": "claude-sonnet-4-5-20250929", "in": 9781, "out": 688, "cache_read": 0, "usd": 0.039663, "ms": 19393, "ok": true, "dry_run": false, "error": null}
+{"at": "2026-10-28T07:52:47.184198+00:00", "node": "analyst", "event": "llm_ok", "model": "claude-sonnet-4-5-20250929", "in": 10445, "out": 1861, "cache_read": 0, "usd": 0.05925, "ms": 38140, "ok": true, "dry_run": false, "error": null}
