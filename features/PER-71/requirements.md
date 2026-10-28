@@ -2,7 +2,7 @@
 
 **Story:** Set Content-Length from UTF-8 bytes for a text StringIO body
 
-**Source:** Ticket PER-71
+**Source:** Ticket PER-71, review feedback (architect_review)
 
 ---
 
@@ -46,7 +46,7 @@
 
 ### AC-4: Test suite passes for body-length tests
 
-**Given** the fix is implemented in `super_len` (in `src/requests/utils.py`) or `prepare_body` (in `src/requests/models.py`)  
+**Given** the fix is implemented in `super_len` in `src/requests/utils.py`  
 **When** `python -m pytest tests` is executed  
 **Then** all body-length tests pass without failures
 
@@ -56,20 +56,29 @@
 
 ---
 
+## Design Constraint
+
+**Change site:** `super_len` in `src/requests/utils.py` **only**. Do **not** change `prepare_body` in `src/requests/models.py`.
+
+When the stream is a text file object (`io.TextIOBase`, including `StringIO`), `Content-Length` must be the UTF-8 byte length, not the character count. Binary `BytesIO` must keep its current byte length. An explicit `Content-Length` from the caller must not be overwritten. Multipart and JSON bodies stay unchanged.
+
+---
+
 ## Out of Scope
 
 - Changing behavior for multipart uploads
 - Changing behavior for JSON bodies (already handled correctly)
 - Overriding an explicit `Content-Length` header supplied by the caller
 - Network-dependent integration tests (unit tests only)
-- Changes outside the `requests` repository
+- Changes outside the `demo-test` repository
+- Changes to `prepare_body` in `src/requests/models.py`
 - Framework, language, ORM, or cloud stack decisions
 
 ---
 
 ## Technical Notes
 
-- **Focus area:** UTF-8 encoding edge case in `super_len` (`src/requests/utils.py`) or `prepare_body` (`src/requests/models.py`)
-- **Constraint:** Binary streams must not change behavior
+- **Focus area:** UTF-8 encoding edge case in `super_len` (`src/requests/utils.py`)
+- **Constraint:** Binary streams must not change behavior; `prepare_body` in `src/requests/models.py` must not be modified
 - **Test isolation:** All verification uses `prepare()` and does not open network connections
-- **File scope:** `src/requests/utils.py` and/or `src/requests/models.py`, plus test file in `tests/`
+- **File scope:** `src/requests/utils.py`, plus test file in `tests/test_utils.py` or `tests/test_requests.py`
