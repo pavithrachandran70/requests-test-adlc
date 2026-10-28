@@ -10,7 +10,7 @@ Single-file behavior fix in multipart encoding that coerces non-string field nam
 
 ## Steps
 
-1. [ ] **analyst (inline_story)** — Ticket clearly states the bug, expected behavior, file location, and scope; one story with AC and test notes is sufficient.
+1. [x] **analyst (inline_story)** — Ticket clearly states the bug, expected behavior, file location, and scope; one story with AC and test notes is sufficient.
    - focus: Focus on the exact coercion point in _encode_files, the parity with urlencoded behavior, and the unit test that exercises both data and files with non-string keys.
 2. [ ] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
 3. [ ] **dev** _(auto)_ — Fixed execution step.
