@@ -1,7 +1,7 @@
 ---
 schema_version: 1
 key: PER-71
-status: developed
+status: in_development
 current_node: dev
 track: quick
 involved_repos:
@@ -9,7 +9,7 @@ involved_repos:
 depends_on: []
 owner: pavc
 lease_until: '2026-10-30T10:11:40.315993+00:00'
-revision: 97
+revision: 108
 hub_sha: null
 ticket_hash: 28d135594abe0d32
 jira_hash: 28d135594abe0d32
@@ -22,7 +22,7 @@ stories:
 child_ticket_keys: []
 critic_iterations: 0
 dev_retries: 0
-pr_revision_rounds: 0
+pr_revision_rounds: 1
 gate_rounds:
   plan: 1
 pr_ids:
@@ -30,10 +30,10 @@ pr_ids:
   hub: '11'
   hub_plan: '12'
   demo-test: '4'
-waiting_for: human_pr
-tokens_in: 171277
-tokens_out: 27664
-cost_anthropic_usd: 0.920477
+waiting_for: null
+tokens_in: 214951
+tokens_out: 36405
+cost_anthropic_usd: 1.159034
 history:
 - node: intake
   note: snapshot written
@@ -212,6 +212,100 @@ history:
 - node: dev
   note: 'human_mode: code ready, PR deferred'
   at: '2026-10-28T10:11:42.347937+00:00'
+- node: dev
+  note: checkpoint push rejected
+  at: '2026-10-28T10:11:44.539497+00:00'
+- node: dev
+  note: 'human_mode: resume opens PR'
+  at: '2026-10-28T10:24:00.930525+00:00'
+- node: pre_pr_qa
+  note: report written
+  at: '2026-10-28T10:24:00.942117+00:00'
+- node: open_pr
+  note: push demo-test ok
+  at: '2026-10-28T10:24:02.713736+00:00'
+- node: open_pr
+  note: PRs opened demo-test:4
+  at: '2026-10-28T10:24:02.713775+00:00'
+- node: pr_review
+  note: diff loaded demo-test chars=4439
+  at: '2026-10-28T10:24:03.594656+00:00'
+- node: pr_review
+  note: 'inline review demo-test: 6 comment(s)'
+  at: '2026-10-28T10:25:06.257765+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:minor:**Unnecessary conditional: `if isinstance(content,
+    str)` is redundant.**
+
+
+    The fu'
+  at: '2026-10-28T10:25:11.012365+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:moderate:**AC-4 verification gap: No test confirms
+    existing body-length tests still pass.'
+  at: '2026-10-28T10:25:16.136094+00:00'
+- node: pr_review
+  note: demo-test:not_an_issue:None:Already fixed. o.tell() is assigned at line 240,
+    and the helper is called at lin
+  at: '2026-10-28T10:25:20.017158+00:00'
+- node: pr_review
+  note: demo-test:not_an_issue:None:Not a defect. 3 or 0 is 3. Only 0 becomes 0, which
+    is the start of the stream.
+  at: '2026-10-28T10:25:23.888578+00:00'
+- node: pr_review
+  note: 'demo-test:not_an_issue:None:Kept on purpose. If .read() is not str, the function
+    returns None and super_len '
+  at: '2026-10-28T10:25:27.371564+00:00'
+- node: pr_review
+  note: demo-test:not_an_issue:None:AC-4 is the existing suite (test_super_len_with_tell
+    and the other body-length t
+  at: '2026-10-28T10:25:30.588488+00:00'
+- node: pr_review
+  note: 'demo-test:issue:moderate:**AC Gap: Position handling violates AD-4**
+
+
+    The helper `_text_stream_utf8_lengt'
+  at: '2026-10-28T10:25:33.964042+00:00'
+- node: pr_review
+  note: 'demo-test:not_an_issue:None:**Unnecessary defensive branch: `io.BufferedIOBase`
+    / `io.RawIOBase` check is re'
+  at: '2026-10-28T10:25:37.958097+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:moderate:**Edge case: `read(0)` heuristic may misfire
+    on objects with side-effecting `rea'
+  at: '2026-10-28T10:25:42.972366+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:moderate:**Redundant None check: `content` is always
+    `str` when `_is_text_stream` returns'
+  at: '2026-10-28T10:25:46.964037+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:major:**AC-4 gap: Test suite verification is missing**
+
+
+    AC-4 states:
+
+
+    > **Given** the '
+  at: '2026-10-28T10:25:51.076095+00:00'
+- node: pr_review
+  note: 'demo-test:issue:moderate:**Test design: `TestTextStreamContentLength` does
+    not verify stream position is '
+  at: '2026-10-28T10:25:56.601480+00:00'
+- node: pr_review
+  note: auto-fix tier=moderate round=1
+  at: '2026-10-28T10:25:58.482555+00:00'
+- node: pr_review
+  note: "route moderate \u2192 designer then dev"
+  at: '2026-10-28T10:25:59.291137+00:00'
+- node: designer
+  note: lld updated
+  at: '2026-10-28T10:27:11.433697+00:00'
+- node: dev
+  note: starting
+  at: '2026-10-28T10:27:11.433768+00:00'
+- node: dev
+  note: done 01-demo-test
+  at: '2026-10-28T10:31:45.000548+00:00'
 ---
 
 # Feature state

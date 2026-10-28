@@ -76,3 +76,28 @@
 2026-10-28T10:11:42.332097+00:00 heartbeat dev
 2026-10-28T10:11:42.332159+00:00 node start dev
 2026-10-28T10:11:42.348118+00:00 node end dev waiting=human_pr
+2026-10-28T10:24:00.941284+00:00 heartbeat pre_pr_qa
+2026-10-28T10:24:00.941361+00:00 node start pre_pr_qa
+2026-10-28T10:24:00.942350+00:00 node end pre_pr_qa waiting=None
+2026-10-28T10:24:00.953794+00:00 heartbeat open_pr
+2026-10-28T10:24:00.953985+00:00 node start open_pr
+2026-10-28T10:24:02.713999+00:00 node end open_pr waiting=None
+2026-10-28T10:24:02.728001+00:00 heartbeat pr_review
+2026-10-28T10:24:02.728119+00:00 node start pr_review
+2026-10-28T10:24:03.596302+00:00 heartbeat reviewer
+2026-10-28T10:25:01.813488+00:00 reviewer llm model=claude-sonnet-4-5-20250929 in=9242 out=2529 usd=0.065661
+2026-10-28T10:25:11.011188+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=457 out=74 usd=0.000827
+2026-10-28T10:25:16.135488+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=465 out=192 usd=0.001425
+2026-10-28T10:25:20.016561+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=243 out=58 usd=0.000533
+2026-10-28T10:25:23.887992+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=247 out=67 usd=0.000582
+2026-10-28T10:25:27.371080+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=241 out=56 usd=0.000521
+2026-10-28T10:25:30.587939+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=252 out=63 usd=0.000567
+2026-10-28T10:25:33.963268+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=660 out=85 usd=0.001085
+2026-10-28T10:25:37.957495+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=562 out=92 usd=0.001022
+2026-10-28T10:25:42.971139+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=662 out=192 usd=0.001622
+2026-10-28T10:25:46.963485+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=500 out=121 usd=0.001105
+2026-10-28T10:25:51.075477+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=494 out=92 usd=0.000954
+2026-10-28T10:25:56.601099+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=587 out=192 usd=0.001547
+2026-10-28T10:25:59.302666+00:00 heartbeat designer
+2026-10-28T10:27:11.432290+00:00 designer llm model=claude-sonnet-4-5-20250929 in=29062 out=4928 usd=0.161106
+2026-10-28T10:27:11.533532+00:00 dev cursor 01-demo-test attempt=1

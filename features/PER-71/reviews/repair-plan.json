@@ -1,0 +1,24 @@
+{
+  "comment_ids": [
+    "4399426037",
+    "4399426090"
+  ],
+  "tier": "moderate",
+  "stories": [
+    "01-demo-test"
+  ],
+  "items": [
+    {
+      "comment_id": "4399426037",
+      "repo": "demo-test",
+      "path": "src/requests/utils.py",
+      "tier": "moderate"
+    },
+    {
+      "comment_id": "4399426090",
+      "repo": "demo-test",
+      "path": "tests/test_utils.py",
+      "tier": "moderate"
+    }
+  ]
+}

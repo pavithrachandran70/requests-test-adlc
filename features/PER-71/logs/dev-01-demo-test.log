@@ -14,3 +14,14 @@ Files changed:
 
 - `src/requests/utils.py`
 - `tests/test_utils.py`
+The text-stream length path now captures the stream position inside that branch, and the content-length tests check that the stream is rewound.
+
+**Position (AD-4).** In `super_len`, `o.tell()` for a text stream runs immediately before `_text_stream_utf8_length`, inside the seekable branch where `total_length` is still unknown. The helper still reads, encodes as UTF-8, and seeks back to that position. Binary streams still use the earlier `tell()` for the seek-to-end length.
+
+**Tests.** `test_text_stringio_utf8_length` and `test_ascii_stringio_length` keep the stream object and assert `stream.tell() == 0 or stream.read() == text` after `prepare()`. `prepare_body` leaves the stream as the body, so a missing `seek()` leaves it at EOF and the assertion fails. `Content-Length` stays `6` for `"héllo"` and `5` for `"hello"`.
+
+`TestTextStreamContentLength` and `TestSuperLen` passed (`20 passed, 1 skipped`) with `PYTHONPATH=src`. `python -m compileall` succeeded on the changed files. The full `pytest tests` run reported 205 setup errors because `pytest-httpbin` is not installed in this environment; those are fixture errors, not failures from this change.
+
+Files changed:
+- `src/requests/utils.py`
+- `tests/test_utils.py`
