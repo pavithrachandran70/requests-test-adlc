@@ -1,20 +1,20 @@
 ---
 schema_version: 1
 key: PER-71
-status: waiting_architect_review
-current_node: architect_gate
+status: developed
+current_node: dev
 track: quick
 involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
-lease_until: '2026-10-30T09:37:36.564918+00:00'
-revision: 89
+lease_until: '2026-10-30T10:11:40.315993+00:00'
+revision: 97
 hub_sha: null
 ticket_hash: 28d135594abe0d32
 jira_hash: 28d135594abe0d32
 tpm_approved: true
-specs_locked: false
+specs_locked: true
 skills_lock:
   bmad: 1cbcfa272fe65787c06a1fa164a901f46117cca7
 stories:
@@ -30,7 +30,7 @@ pr_ids:
   hub: '11'
   hub_plan: '12'
   demo-test: '4'
-waiting_for: architect_review
+waiting_for: human_pr
 tokens_in: 171277
 tokens_out: 27664
 cost_anthropic_usd: 0.920477
@@ -197,6 +197,21 @@ history:
 - node: architect_gate
   note: awaiting human hub PR approval
   at: '2026-10-28T10:10:27.409957+00:00'
+- node: architect_gate
+  note: checkpoint push rejected
+  at: '2026-10-28T10:10:29.653678+00:00'
+- node: architect_gate
+  note: approved via hub PR (reconcile)
+  at: '2026-10-28T10:11:39.404077+00:00'
+- node: architect_gate
+  note: "forge unlocked architect_review \u2192 resume"
+  at: '2026-10-28T10:11:40.316030+00:00'
+- node: dev
+  note: starting
+  at: '2026-10-28T10:11:42.332331+00:00'
+- node: dev
+  note: 'human_mode: code ready, PR deferred'
+  at: '2026-10-28T10:11:42.347937+00:00'
 ---
 
 # Feature state
