@@ -1,15 +1,15 @@
 ---
 schema_version: 1
 key: PER-71
-status: in_development
-current_node: dev
+status: pr_reviewed
+current_node: pr_review
 track: quick
 involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
 lease_until: '2026-10-30T10:11:40.315993+00:00'
-revision: 108
+revision: 112
 hub_sha: null
 ticket_hash: 28d135594abe0d32
 jira_hash: 28d135594abe0d32
@@ -30,10 +30,10 @@ pr_ids:
   hub: '11'
   hub_plan: '12'
   demo-test: '4'
-waiting_for: null
-tokens_in: 214951
-tokens_out: 36405
-cost_anthropic_usd: 1.159034
+waiting_for: feature_pr_human
+tokens_in: 234097
+tokens_out: 39706
+cost_anthropic_usd: 1.235045
 history:
 - node: intake
   note: snapshot written
@@ -306,6 +306,111 @@ history:
 - node: dev
   note: done 01-demo-test
   at: '2026-10-28T10:31:45.000548+00:00'
+- node: dev
+  note: checkpoint push rejected
+  at: '2026-10-28T10:31:47.337611+00:00'
+- node: dev
+  note: 'human_mode: code ready, PR deferred'
+  at: '2026-10-28T10:31:47.358760+00:00'
+- node: open_pr
+  note: push demo-test ok
+  at: '2026-10-28T10:31:49.880552+00:00'
+- node: pr_review
+  note: resolved demo-test:4399426037
+  at: '2026-10-28T10:31:57.102534+00:00'
+- node: pr_review
+  note: resolved demo-test:4399426090
+  at: '2026-10-28T10:32:03.011003+00:00'
+- node: pr_review
+  note: post-fix re-review (auto_fix=False)
+  at: '2026-10-28T10:32:03.011065+00:00'
+- node: pr_review
+  note: diff loaded demo-test chars=5579
+  at: '2026-10-28T10:32:04.304077+00:00'
+- node: pr_review
+  note: 'inline review demo-test: 7 comment(s)'
+  at: '2026-10-28T10:32:50.915682+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:minor:**Unnecessary conditional: `if isinstance(content,
+    str)` is redundant.**
+
+
+    The fu'
+  at: '2026-10-28T10:32:56.057453+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:needs_human
+  at: '2026-10-28T10:32:56.057487+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:moderate:**AC-4 verification gap: No test confirms
+    existing body-length tests still pass.'
+  at: '2026-10-28T10:32:58.425769+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:needs_human
+  at: '2026-10-28T10:32:58.425783+00:00'
+- node: pr_review
+  note: demo-test:not_an_issue:None:Already fixed. o.tell() is assigned at line 240,
+    and the helper is called at lin
+  at: '2026-10-28T10:32:59.987803+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:not_an_issue
+  at: '2026-10-28T10:32:59.987827+00:00'
+- node: pr_review
+  note: demo-test:not_an_issue:None:Not a defect. 3 or 0 is 3. Only 0 becomes 0, which
+    is the start of the stream.
+  at: '2026-10-28T10:33:01.427736+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:not_an_issue
+  at: '2026-10-28T10:33:01.427750+00:00'
+- node: pr_review
+  note: 'demo-test:not_an_issue:None:Kept on purpose. If .read() is not str, the function
+    returns None and super_len '
+  at: '2026-10-28T10:33:02.942334+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:not_an_issue
+  at: '2026-10-28T10:33:02.942356+00:00'
+- node: pr_review
+  note: demo-test:not_an_issue:None:AC-4 is the existing suite (test_super_len_with_tell
+    and the other body-length t
+  at: '2026-10-28T10:33:04.392356+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:not_an_issue
+  at: '2026-10-28T10:33:04.392390+00:00'
+- node: pr_review
+  note: 'demo-test:not_an_issue:None:**Unnecessary defensive branch: `io.BufferedIOBase`
+    / `io.RawIOBase` check is re'
+  at: '2026-10-28T10:33:06.611994+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:not_an_issue
+  at: '2026-10-28T10:33:06.612027+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:moderate:**Edge case: `read(0)` heuristic may misfire
+    on objects with side-effecting `rea'
+  at: '2026-10-28T10:33:09.820815+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:needs_human
+  at: '2026-10-28T10:33:09.820832+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:moderate:**Redundant None check: `content` is always
+    `str` when `_is_text_stream` returns'
+  at: '2026-10-28T10:33:12.104507+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:needs_human
+  at: '2026-10-28T10:33:12.104529+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:moderate:**AC-4 gap: Test suite verification is missing**
+
+
+    AC-4 states:
+
+
+    > **Given** the '
+  at: '2026-10-28T10:33:13.914811+00:00'
+- node: pr_review
+  note: re-review triage deferred demo-test:needs_human
+  at: '2026-10-28T10:33:13.914829+00:00'
+- node: pr_review
+  note: awaiting feature_pr_human
+  at: '2026-10-28T10:33:14.648002+00:00'
 ---
 
 # Feature state
