@@ -14,3 +14,6 @@
 2026-10-28T13:40:25.645060+00:00 heartbeat architect_gate
 2026-10-28T13:40:25.645296+00:00 node start architect_gate
 2026-10-28T13:40:34.011769+00:00 node end architect_gate waiting=architect_review
+2026-10-28T13:41:07.715580+00:00 heartbeat dev
+2026-10-28T13:41:07.715649+00:00 node start dev
+2026-10-28T13:41:08.714984+00:00 dev cursor 01-demo-test attempt=1

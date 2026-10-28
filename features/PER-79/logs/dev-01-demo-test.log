@@ -1,0 +1,9 @@
+Updated the `from_key_val_list` docstring in `src/requests/utils.py` so both examples use the Python 3.12 `OrderedDict` repr. The function itself is unchanged.
+
+- List example: `OrderedDict({'key': 'val'})`
+- Dict example: `OrderedDict({'key': 'val'})`
+- The `ValueError` example is unchanged.
+
+`PYTHONPATH=src python -m pytest --doctest-modules src/requests/utils.py` passed (4 tests). A direct check still returns an `OrderedDict` equal to `OrderedDict([('key', 'val')])` for both a list of tuples and a dict. `tests/test_utils.py` has no `from_key_val_list` tests.
+
+**File changed:** `src/requests/utils.py`
