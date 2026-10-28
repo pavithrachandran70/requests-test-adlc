@@ -14,8 +14,8 @@ Single-file bugfix in multipart field-name handling with a focused unit test; no
    - focus: Focus on the precise behavior change in _encode_files (coerce field names to strings), the test requirements (no network calls, int keys in data and files), and preserving urlencoded behavior.
 2. [x] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
 3. [ ] **dev** _(auto)_ — Fixed execution step.
-4. [ ] **pre_pr_qa** _(auto)_ — Fixed execution step.
-5. [ ] **open_pr** _(auto)_ — Fixed execution step.
+4. [x] **pre_pr_qa** _(auto)_ — Fixed execution step.
+5. [x] **open_pr** _(auto)_ — Fixed execution step.
 6. [ ] **pr_review** _(auto)_ — Fixed execution step.
 7. [ ] **merge** _(auto)_ — Fixed execution step.
 
