@@ -1,15 +1,15 @@
 ---
 schema_version: 1
 key: PER-71
-status: developed
-current_node: dev
+status: changes_requested
+current_node: pr_review
 track: quick
 involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
 lease_until: '2026-10-30T09:37:36.564918+00:00'
-revision: 67
+revision: 77
 hub_sha: null
 ticket_hash: 28d135594abe0d32
 jira_hash: 28d135594abe0d32
@@ -29,10 +29,11 @@ pr_ids:
   hub_arch: '11'
   hub: '11'
   hub_plan: '12'
-waiting_for: human_pr
-tokens_in: 80965
-tokens_out: 15998
-cost_anthropic_usd: 0.482521
+  demo-test: '4'
+waiting_for: spec_revision
+tokens_in: 92117
+tokens_out: 17645
+cost_anthropic_usd: 0.532712
 history:
 - node: intake
   note: snapshot written
@@ -120,6 +121,55 @@ history:
 - node: dev
   note: 'human_mode: code ready, PR deferred'
   at: '2026-10-28T09:43:11.573439+00:00'
+- node: dev
+  note: checkpoint push rejected
+  at: '2026-10-28T09:43:13.746307+00:00'
+- node: dev
+  note: 'human_mode: resume opens PR'
+  at: '2026-10-28T09:55:32.996302+00:00'
+- node: pre_pr_qa
+  note: report written
+  at: '2026-10-28T09:55:33.018824+00:00'
+- node: open_pr
+  note: push demo-test ok
+  at: '2026-10-28T09:55:40.356307+00:00'
+- node: open_pr
+  note: PRs opened demo-test:4
+  at: '2026-10-28T09:55:40.356371+00:00'
+- node: pr_review
+  note: diff loaded demo-test chars=4439
+  at: '2026-10-28T09:55:41.346385+00:00'
+- node: pr_review
+  note: 'inline review demo-test: 4 comment(s)'
+  at: '2026-10-28T09:56:14.665954+00:00'
+- node: pr_review
+  note: 'demo-test:issue:major:**AC gap: `_text_stream_utf8_length` does not restore
+    position correctly when `c'
+  at: '2026-10-28T09:56:19.224742+00:00'
+- node: pr_review
+  note: "major issue classified \u2192 human (deferred; continue auto-fix)"
+  at: '2026-10-28T09:56:21.033647+00:00'
+- node: pr_review
+  note: 'demo-test:issue:major:**Bug: `_text_stream_utf8_length` is called before
+    `current_position` is set, ca'
+  at: '2026-10-28T09:56:22.844763+00:00'
+- node: pr_review
+  note: "major issue classified \u2192 human (deferred; continue auto-fix)"
+  at: '2026-10-28T09:56:25.646044+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:minor:**Unnecessary conditional: `if isinstance(content,
+    str)` is redundant.**
+
+
+    The fu'
+  at: '2026-10-28T09:56:27.299045+00:00'
+- node: pr_review
+  note: 'demo-test:needs_human:moderate:**AC-4 verification gap: No test confirms
+    existing body-length tests still pass.'
+  at: '2026-10-28T09:56:32.570028+00:00'
+- node: pr_review
+  note: "major issue \u2192 delta spec gate (human)"
+  at: '2026-10-28T09:56:35.142110+00:00'
 ---
 
 # Feature state

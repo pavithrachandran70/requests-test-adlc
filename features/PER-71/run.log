@@ -40,3 +40,18 @@
 2026-10-28T09:37:37.670344+00:00 node start dev
 2026-10-28T09:37:37.755467+00:00 dev cursor 01-demo-test attempt=1
 2026-10-28T09:43:11.573585+00:00 node end dev waiting=human_pr
+2026-10-28T09:55:33.015351+00:00 heartbeat pre_pr_qa
+2026-10-28T09:55:33.015799+00:00 node start pre_pr_qa
+2026-10-28T09:55:33.019486+00:00 node end pre_pr_qa waiting=None
+2026-10-28T09:55:33.033159+00:00 heartbeat open_pr
+2026-10-28T09:55:33.033393+00:00 node start open_pr
+2026-10-28T09:55:40.356734+00:00 node end open_pr waiting=None
+2026-10-28T09:55:40.379978+00:00 heartbeat pr_review
+2026-10-28T09:55:40.380362+00:00 node start pr_review
+2026-10-28T09:55:41.347651+00:00 heartbeat reviewer
+2026-10-28T09:56:11.424584+00:00 reviewer llm model=claude-sonnet-4-5-20250929 in=9252 out=1230 usd=0.046206
+2026-10-28T09:56:19.222665+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=519 out=76 usd=0.000899
+2026-10-28T09:56:22.843319+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=459 out=71 usd=0.000814
+2026-10-28T09:56:27.298265+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=457 out=78 usd=0.000847
+2026-10-28T09:56:32.568216+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=465 out=192 usd=0.001425
+2026-10-28T09:56:35.142572+00:00 node end pr_review waiting=spec_revision
