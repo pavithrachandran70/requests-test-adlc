@@ -1,0 +1,16 @@
+`Content-Length` for a text `StringIO` is now the UTF-8 byte length. `prepare_body` is unchanged.
+
+`super_len` in `src/requests/utils.py` used `tell()` for in-memory streams, which counts characters. For a text stream it now reads the remaining text, encodes it as UTF-8, and seeks back to the original position. Binary streams, real files, multipart bodies, JSON bodies, and a caller-supplied `Content-Length` are unchanged.
+
+`tests/test_utils.py` covers the three cases through `Request.prepare()` with no network connection:
+
+- `StringIO("héllo")` → `Content-Length: 6`
+- `BytesIO("héllo".encode())` → `Content-Length: 6`
+- `StringIO("hello")` → `Content-Length: 5`
+
+`PYTHONPATH=src python -m pytest tests/test_utils.py::TestSuperLen tests/test_utils.py::TestTextStreamContentLength` — 19 passed, 1 skipped. The full `tests` run had no failures in tests that actually executed (417 passed). 205 errors are a pre-existing `httpbin` fixture recursion because `pytest-httpbin` is not installed; they fail during setup, before any request body code runs.
+
+Files changed:
+
+- `src/requests/utils.py`
+- `tests/test_utils.py`
