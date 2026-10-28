@@ -1,9 +1,10 @@
-project: my-project
+# Written by `adlc setup`. Shared project config. Secrets belong in the package .env.
+project: requuests-demo-test
 schema_version: 1
-ticket_store: linear # markdown | linear
+ticket_store: linear
 linear:
-  team_id: "4d7ec692-ad55-4138-a986-119b25f08478"
-code_host: local_stub
+  team_id: 4d7ec692-ad55-4138-a986-119b25f08478
+code_host: github
 llm:
   provider: anthropic
   model_small: claude-haiku-4-5-20251001
@@ -25,19 +26,22 @@ cursor:
   mode_default: auto
   agent_bin: agent
 repos:
-  app:
-    path_key: app
+  demo-test:
+    path_key: demo-test
     role: app
     base: main
     commands:
-      test: "python -m pytest -q"
-      lint: "python -m compileall -q ."
-dependency_order: [app]
+      test: ''
+      lint: ''
+    url: https://github.com/pavithrachandran70/requests-demo
+dependency_order:
+- demo-test
 policies:
-  # cli | hub_pr — hub_pr opens human-only hub PRs for TPM then Architect gates
-  spec_review: cli
+  plan_review: true
+  spec_review: hub_pr
   feature_pr_agent_review: true
-  feature_pr_human_review: required  # required | optional | none
+  feature_pr_human_review: required
+  human_mode: true
   lease_hours: 48
 budgets:
   per_feature_anthropic_usd: 15
