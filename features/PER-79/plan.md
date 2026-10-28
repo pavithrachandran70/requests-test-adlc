@@ -12,7 +12,7 @@ A docstring-only fix to match Python 3.12 repr; analyst inline_story is sufficie
 
 1. [x] **analyst (inline_story)** — The ticket already specifies the exact lines to change and the acceptance criteria; a single story with tech notes is enough.
    - focus: Focus on the two docstring lines showing OrderedDict repr; no behavior or logic changes.
-2. [ ] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
+2. [x] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
 3. [ ] **dev** _(auto)_ — Fixed execution step.
 4. [ ] **pre_pr_qa** _(auto)_ — Fixed execution step.
 5. [ ] **open_pr** _(auto)_ — Fixed execution step.
