@@ -1,221 +1,238 @@
-# Story PER-77 — Coerce non-string multipart field names
+# Story PER-77 — Coerce non-string multipart field names instead of raising AttributeError
 
 **Type:** bug  
+**Track:** Quick  
+**Epic:** (none)  
 **ID:** 77  
-**Title:** Coerce non-string multipart field names instead of raising AttributeError  
-**Epic:** _(none — backlog item)_  
-**Status:** draft  
-**Assignee:** _(unassigned)_
+**Title:** Coerce non-string multipart field names instead of raising AttributeError
 
 ---
 
 ## Story
 
-**As a** developer using the requests library  
-**I want** non-string field names in multipart requests to be automatically coerced to strings  
-**So that** I can use the same data dictionary for both urlencoded and multipart requests without crashes
+As a developer using the requests library,  
+I want to pass non-string keys in `data` or `files` when preparing multipart requests,  
+so that I don't encounter an `AttributeError` when urllib3 attempts to encode field names.
 
 ---
 
-## Background
+## Context
 
-Currently, `Request._encode_files` in `src/requests/models.py` converts field *values* with `str()` but passes field *names* through unchanged. When urllib3 processes these names, it calls `.translate()` on them, which raises `AttributeError` for non-string types like `int`. This inconsistency means `data={1: "a"}` works for urlencoded bodies but crashes when `files` is also set.
+Currently, `Request._encode_files` accepts non-string keys in `data` and `files` but does not coerce field names to strings before passing them to urllib3's multipart encoder. urllib3 expects string field names and calls `.translate()` on them, causing an `AttributeError` when an integer key is used. Urlencoded requests already handle non-string keys correctly (producing bodies like `1=a`), so multipart requests should behave consistently.
 
-**Example of current behavior:**
+**Reproduction:**
 
 ```python
+import requests
+
+# Works — urlencoded body is "1=a"
 requests.Request("POST", "http://x", data={1: "a"}).prepare()
-# works, body is 1=a
 
+# Fails — AttributeError: 'int' object has no attribute 'translate'
 requests.Request("POST", "http://x", data={1: "a"}, files={"f": b"x"}).prepare()
-# AttributeError: 'int' object has no attribute 'translate'
 
+# Fails — AttributeError: 'int' object has no attribute 'translate'
 requests.Request("POST", "http://x", files={1: b"x"}).prepare()
-# AttributeError: 'int' object has no attribute 'translate'
 ```
 
 ---
 
 ## Acceptance Criteria
 
-### AC1: Integer field names in `data` with `files` set
+### AC1: Integer keys in `data` succeed with multipart encoding
 
 **Given** a POST request with `data={1: "a"}` and `files={"f": b"x"}`  
 **When** `.prepare()` is called  
-**Then** the request prepares successfully  
-**And** the multipart body contains the field name `"1"`
+**Then** the request prepares successfully without raising `AttributeError`  
+**And** the multipart body includes the field name `"1"` with value `"a"`
 
-**Verification:**
-```python
-req = requests.Request("POST", "http://x", data={1: "a"}, files={"f": b"x"})
-prepared = req.prepare()
-# Should not raise AttributeError
-assert prepared.body is not None
-assert b'name="1"' in prepared.body
-```
+**Verification:** Call `requests.Request("POST", "http://x", data={1: "a"}, files={"f": b"x"}).prepare()` and assert no exception is raised. Inspect the prepared request's body to confirm field `"1"` is present.
 
 ---
 
-### AC2: Integer field names in `files`
+### AC2: Integer keys in `files` succeed
 
 **Given** a POST request with `files={1: b"x"}`  
 **When** `.prepare()` is called  
-**Then** the request prepares successfully  
-**And** the multipart body contains the field name `"1"`
+**Then** the request prepares successfully without raising `AttributeError`  
+**And** the multipart body includes the field name `"1"`
 
-**Verification:**
-```python
-req = requests.Request("POST", "http://x", files={1: b"x"})
-prepared = req.prepare()
-# Should not raise AttributeError
-assert prepared.body is not None
-assert b'name="1"' in prepared.body
-```
+**Verification:** Call `requests.Request("POST", "http://x", files={1: b"x"}).prepare()` and assert no exception is raised. Inspect the prepared request's body to confirm field `"1"` is present.
 
 ---
 
-### AC3: Urlencoded behavior preserved
+### AC3: Urlencoded behavior is preserved
 
-**Given** a POST request with `data={1: "a"}` and no `files`  
+**Given** a POST request with `data={1: "a"}` and no `files` parameter  
 **When** `.prepare()` is called  
-**Then** the request prepares successfully  
-**And** the urlencoded body is `1=a` (integer key preserved, not stringified in the body)
+**Then** the request body is `1=a` (urlencoded format)  
+**And** the behavior is identical to the current implementation
 
-**Verification:**
-```python
-req = requests.Request("POST", "http://x", data={1: "a"})
-prepared = req.prepare()
-assert prepared.body == b"1=a"
-# Not b'"1"=a' — urlencoded encoding unchanged
-```
+**Verification:** Call `requests.Request("POST", "http://x", data={1: "a"}).prepare()` and assert `prepared.body == b"1=a"` (or the exact urlencoded representation).
 
 ---
 
 ### AC4: Test coverage
 
-**Given** a new test `test_non_string_field_names` in `tests/test_requests.py`  
-**When** `python -m pytest tests/test_requests.py::test_non_string_field_names` runs  
-**Then** the test passes  
-**And** when `python -m pytest tests` runs, all existing request-preparation tests pass
+**Given** a new unit test for non-string field names  
+**When** the test runs via `python -m pytest tests`  
+**Then** the test exercises:
+- An integer key in `data` when `files` is set
+- An integer key in `files`  
+**And** the test does not open network connections  
+**And** the test passes
 
-**Verification:**
-```bash
-python -m pytest tests/test_requests.py::test_non_string_field_names -v
-# Exit code 0
+**Verification:** Add `test_nonstring_multipart_field_names` in `tests/test_requests.py`. Run `python -m pytest tests/test_requests.py::test_nonstring_multipart_field_names -v` and confirm it passes.
 
-python -m pytest tests
-# Exit code 0, no regressions
-```
+---
+
+### AC5: Existing tests pass
+
+**Given** the existing test suite in `tests/`  
+**When** `python -m pytest tests` runs  
+**Then** all request-preparation tests pass  
+**And** no regressions are introduced
+
+**Verification:** Run `python -m pytest tests` and confirm zero failures in request-preparation tests (at minimum `tests/test_requests.py`, `tests/test_lowlevel.py`).
 
 ---
 
 ## Technical Specification
 
-### Change Scope
+### Change Location
 
 **File:** `src/requests/models.py`  
 **Method:** `Request._encode_files`
 
-**Current behavior:** Field names are passed through unchanged to urllib3. Field values are coerced with `str()`.
+### Proposed Change
 
-**Required change:** Coerce field names to strings before passing to urllib3.
+In `_encode_files`, coerce field names to strings before passing them to the urllib3 multipart encoder. This ensures non-string keys (e.g., integers) do not cause `AttributeError` when urllib3 calls `.translate()` on field names.
 
-**Implementation approach:**
-
-1. Locate the section in `_encode_files` where field names are extracted from `data` and `files` dictionaries
-2. Wrap each field name with `str()` before constructing the fields list passed to urllib3
-3. Ensure this coercion happens for both `data` keys (when `files` is set) and `files` keys
-4. Do NOT modify the urlencoded path — `_encode_params` should remain unchanged
-
-**Example pseudo-code:**
-
+**Before (pseudocode):**
 ```python
-# In _encode_files, when iterating over data.items():
-for k, v in data.items():
-    field_name = str(k)  # <-- Add this coercion
-    # ... rest of field construction
-
-# Similarly for files.items():
-for k, v in files.items():
-    field_name = str(k)  # <-- Add this coercion
-    # ... rest of field construction
+# Current behavior — field name passed unchanged
+for field_name, field_value in data.items():
+    # field_name is used as-is, causing AttributeError if not a string
+    ...
 ```
 
----
+**After (pseudocode):**
+```python
+# New behavior — coerce field name to string
+for field_name, field_value in data.items():
+    field_name = str(field_name)
+    # field_name is now always a string
+    ...
+```
+
+Apply the same coercion when iterating over `files`.
 
 ### Test Requirements
 
-**Test file:** `tests/test_requests.py`  
-**Test function:** `test_non_string_field_names`
+**File:** `tests/test_requests.py`  
+**Test name:** `test_nonstring_multipart_field_names`
 
-**Requirements:**
-
-- Unit test using `.prepare()` — no network calls, no server fixture
-- Cover three scenarios:
-  1. Integer key in `data` with `files` set (AC1)
-  2. Integer key in `files` (AC2)
-  3. Integer key in `data` with no `files` (AC3 — urlencoded preserved)
-- Assert no `AttributeError` raised
-- Assert field names appear as strings in multipart bodies
-- Assert urlencoded body unchanged
-- Must not import or call any network-dependent fixtures
-
-**Example test structure:**
-
+**Test body:**
 ```python
-def test_non_string_field_names():
-    """Non-string field names should be coerced to strings in multipart bodies."""
+def test_nonstring_multipart_field_names():
+    """Non-string keys in data or files should be coerced to strings in multipart encoding."""
     
-    # AC1: data with int key, files set
-    req = requests.Request("POST", "http://x", data={1: "a"}, files={"f": b"x"})
-    prepared = req.prepare()
-    assert prepared.body is not None
-    assert b'name="1"' in prepared.body
+    # AC1: Integer key in data with files set
+    req1 = requests.Request("POST", "http://example.com", data={1: "a"}, files={"f": b"x"})
+    prepared1 = req1.prepare()
+    assert prepared1 is not None  # No AttributeError raised
+    assert b'name="1"' in prepared1.body  # Field name "1" appears in multipart body
     
-    # AC2: files with int key
-    req = requests.Request("POST", "http://x", files={1: b"x"})
-    prepared = req.prepare()
-    assert prepared.body is not None
-    assert b'name="1"' in prepared.body
+    # AC2: Integer key in files
+    req2 = requests.Request("POST", "http://example.com", files={1: b"x"})
+    prepared2 = req2.prepare()
+    assert prepared2 is not None  # No AttributeError raised
+    assert b'name="1"' in prepared2.body  # Field name "1" appears in multipart body
     
-    # AC3: urlencoded preserved
-    req = requests.Request("POST", "http://x", data={1: "a"})
-    prepared = req.prepare()
-    assert prepared.body == b"1=a"
+    # AC3: Urlencoded behavior preserved (no files)
+    req3 = requests.Request("POST", "http://example.com", data={1: "a"})
+    prepared3 = req3.prepare()
+    assert prepared3.body == b"1=a"  # Urlencoded body unchanged
 ```
 
+**No network calls:** The test uses `Request(...).prepare()` directly, which does not open network connections.
+
+### Scope
+
+- **In scope:**
+  - Modify `Request._encode_files` in `src/requests/models.py`
+  - Add `test_nonstring_multipart_field_names` in `tests/test_requests.py`
+  - Verify AC1–AC5
+
+- **Out of scope:**
+  - Changes to urlencoded encoding logic
+  - Changes to file-tuple parsing (e.g., `(filename, fileobj, content_type)` shapes)
+  - Changes to public API signatures (`Request.__init__`, `request()`, `post()`, etc.)
+  - Framework, ORM, or deployment considerations
+
+### Verification Steps
+
+1. **Unit test passes:**  
+   ```bash
+   python -m pytest tests/test_requests.py::test_nonstring_multipart_field_names -v
+   ```
+   Expected: `PASSED`
+
+2. **Existing tests pass:**  
+   ```bash
+   python -m pytest tests
+   ```
+   Expected: No new failures in `tests/test_requests.py`, `tests/test_lowlevel.py`, or other request-preparation tests.
+
+3. **Lint passes:**  
+   ```bash
+   python -m compileall -q .
+   ```
+   Expected: No syntax errors.
+
+4. **Manual verification:**  
+   ```python
+   import requests
+   
+   # AC1 — data with files
+   req1 = requests.Request("POST", "http://x", data={1: "a"}, files={"f": b"x"})
+   prepared1 = req1.prepare()
+   print("AC1 passed — no AttributeError")
+   
+   # AC2 — files only
+   req2 = requests.Request("POST", "http://x", files={1: b"x"})
+   prepared2 = req2.prepare()
+   print("AC2 passed — no AttributeError")
+   
+   # AC3 — urlencoded preserved
+   req3 = requests.Request("POST", "http://x", data={1: "a"})
+   prepared3 = req3.prepare()
+   assert prepared3.body == b"1=a"
+   print("AC3 passed — urlencoded body is '1=a'")
+   ```
+   Expected: All assertions pass, no exceptions.
+
 ---
 
-### Constraints
+## Dependencies
 
-1. **Do not modify urlencoded encoding:** `_encode_params` and the urlencoded path must remain unchanged. AC3 verifies this.
-2. **Do not change file-tuple shapes:** The format of file tuples passed to `files` must remain backward-compatible.
-3. **Do not alter public method signatures:** `Request.__init__`, `Request.prepare()`, and related public APIs must not change.
-4. **Preserve existing behavior:** All existing request-preparation tests must continue to pass.
+None.
 
 ---
 
-## Out of Scope
+## Open Questions
 
-- Changing how urlencoded bodies serialize field names (they remain as-is)
-- Modifying urllib3's internal field-name handling
-- Altering public API contracts or method signatures
-- Supporting non-stringifiable types (objects without `__str__` are out of scope)
-- Changing behavior for string field names (no regression)
+None.
 
 ---
 
 ## Notes
 
-- **Complexity:** Simple — single-method change with focused test
-- **Risk:** Low — change is localized, well-constrained, and directly addresses the AttributeError
-- **Verification approach:** Unit test only, no integration or network calls required
-- **Regression risk:** Mitigated by preserving urlencoded path and running full test suite
+- The fix is a single-line change in `_encode_files`: wrap field names with `str()` before passing to urllib3.
+- The test must not open network connections — use `Request(...).prepare()` directly, not `requests.post()`.
+- Urlencoded behavior (`data={1: "a"}` → `1=a`) must remain unchanged; this fix only affects multipart encoding (when `files` is set).
+- No changes to file-tuple shapes or public method signatures.
 
 ---
 
-## References
-
-- Source ticket describes the bug and expected behavior
-- `src/requests/models.py` contains `Request._encode_files`
-- `tests/test_requests.py` is the standard location for request-preparation tests
+**Planner focus applied:** The spec focuses on the precise behavior change in `_encode_files` (coerce field names to strings), the test requirements (no network calls, int keys in `data` and `files`), and preserving urlencoded behavior. All file paths match the repo tree (`src/requests/models.py`, `tests/test_requests.py`).
