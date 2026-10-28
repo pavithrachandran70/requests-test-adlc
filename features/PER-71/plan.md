@@ -10,7 +10,7 @@ A focused bug fix in one repo's length calculation for text streams; analyst inl
 
 ## Steps
 
-1. [ ] **analyst (inline_story)** — Single-repo behavioral fix with clear acceptance criteria stated in the ticket.
+1. [x] **analyst (inline_story)** — Single-repo behavioral fix with clear acceptance criteria stated in the ticket.
    - focus: Focus on the UTF-8 encoding edge case in super_len or prepare_body; note that binary streams must not change.
 2. [ ] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
 3. [ ] **dev** _(auto)_ — Fixed execution step.
