@@ -8,8 +8,8 @@ involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
-lease_until: '2026-10-30T12:26:06.317254+00:00'
-revision: 32
+lease_until: '2026-10-30T12:26:01.343973+00:00'
+revision: 25
 hub_sha: null
 ticket_hash: 0847fb326ac5802a
 jira_hash: 0847fb326ac5802a
@@ -28,7 +28,7 @@ pr_ids:
   hub_plan: '13'
   hub_arch: '14'
   hub: '14'
-waiting_for: dirty_worktree
+waiting_for: null
 tokens_in: 23274
 tokens_out: 3837
 cost_anthropic_usd: 0.127033
@@ -76,18 +76,9 @@ history:
 - node: dev
   note: starting
   at: '2026-10-28T12:26:02.539281+00:00'
-- node: catch_up
-  note: manual commit 3c7baaa05ab4aa49cc819ce3a819d260de19c157
-  at: '2026-10-28T12:26:06.287877+00:00'
-- node: catch_up
-  note: "forge unlocked architect_review \u2192 resume"
-  at: '2026-10-28T12:26:06.317322+00:00'
 - node: dev
-  note: starting
-  at: '2026-10-28T12:26:07.524333+00:00'
-- node: dev
-  note: dirty worktree stashed
-  at: '2026-10-28T12:26:07.595653+00:00'
+  note: done 01-demo-test (verify-ok; agent status=error)
+  at: '2026-10-28T12:30:19.009071+00:00'
 ---
 
 # Feature state
