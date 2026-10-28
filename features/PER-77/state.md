@@ -1,15 +1,15 @@
 ---
 schema_version: 1
 key: PER-77
-status: pr_reviewed
-current_node: pr_review
+status: in_development
+current_node: dev
 track: standard
 involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
-lease_until: '2026-10-30T12:26:01.343973+00:00'
-revision: 34
+lease_until: '2026-10-30T12:53:33.181385+00:00'
+revision: 54
 hub_sha: null
 ticket_hash: 0847fb326ac5802a
 jira_hash: 0847fb326ac5802a
@@ -22,17 +22,17 @@ stories:
 child_ticket_keys: []
 critic_iterations: 0
 dev_retries: 0
-pr_revision_rounds: 0
+pr_revision_rounds: 1
 gate_rounds: {}
 pr_ids:
   hub_plan: '13'
   hub_arch: '14'
   hub: '14'
   demo-test: '5'
-waiting_for: feature_pr_human
-tokens_in: 28602
-tokens_out: 3935
-cost_anthropic_usd: 0.144487
+waiting_for: dirty_worktree
+tokens_in: 39870
+tokens_out: 6820
+cost_anthropic_usd: 0.221566
 history:
 - node: intake
   note: snapshot written
@@ -101,6 +101,31 @@ history:
 - node: pr_review
   note: awaiting feature_pr_human
   at: '2026-10-28T12:41:24.592882+00:00'
+- node: catch_up
+  note: "unrepaired feature PR comments \u2192 fix"
+  at: '2026-10-28T12:53:33.181496+00:00'
+- node: pr_review
+  note: 'fix:demo-test:issue:moderate:Required code change. The head commit is empty,
+    so this pull request changes no '
+  at: '2026-10-28T12:53:38.882983+00:00'
+- node: pr_review
+  note: auto-fix tier=moderate round=1
+  at: '2026-10-28T12:53:41.337281+00:00'
+- node: pr_review
+  note: "route moderate \u2192 designer then dev"
+  at: '2026-10-28T12:53:41.964927+00:00'
+- node: designer
+  note: lld updated
+  at: '2026-10-28T12:54:24.443401+00:00'
+- node: dev
+  note: starting
+  at: '2026-10-28T12:54:24.443461+00:00'
+- node: dev
+  note: starting
+  at: '2026-10-28T12:58:15.495451+00:00'
+- node: dev
+  note: dirty worktree stashed
+  at: '2026-10-28T12:58:15.532326+00:00'
 ---
 
 # Feature state

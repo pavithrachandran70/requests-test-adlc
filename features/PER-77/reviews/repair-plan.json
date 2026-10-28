@@ -1,0 +1,17 @@
+{
+  "comment_ids": [
+    "6469488496"
+  ],
+  "tier": "moderate",
+  "stories": [
+    "01-demo-test"
+  ],
+  "items": [
+    {
+      "comment_id": "6469488496",
+      "repo": "demo-test",
+      "path": null,
+      "tier": "moderate"
+    }
+  ]
+}

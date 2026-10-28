@@ -104,28 +104,28 @@ requests.Request("POST", "http://x", files={1: b"x"}).prepare()
 **File:** `src/requests/models.py`  
 **Method:** `Request._encode_files`
 
-### Proposed Change
+### Required Implementation
 
-In `_encode_files`, coerce field names to strings before passing them to the urllib3 multipart encoder. This ensures non-string keys (e.g., integers) do not cause `AttributeError` when urllib3 calls `.translate()` on field names.
+In `Request._encode_files`, coerce **every multipart field name** to `str` before passing it to urllib3's multipart encoder. This ensures non-string keys (e.g., integers) do not cause `AttributeError` when urllib3 calls `.translate()` on field names.
 
-**Before (pseudocode):**
+**Implementation requirement:**
+- When iterating over `data` items for multipart encoding, apply `str()` to each field name
+- When iterating over `files` items for multipart encoding, apply `str()` to each field name
+- An integer key like `1` must become the string field name `"1"` in the multipart body
+- Do **not** modify urlencoded encoding — `data={1: "a"}` with no `files` must still produce body `1=a`
+- Do **not** change file-tuple shapes or method signatures
+
+**Pseudocode:**
 ```python
-# Current behavior — field name passed unchanged
+# In _encode_files, when building multipart fields:
 for field_name, field_value in data.items():
-    # field_name is used as-is, causing AttributeError if not a string
-    ...
+    field_name = str(field_name)  # Coerce to string
+    # ... rest of multipart encoding logic
+    
+for field_name, field_value in files.items():
+    field_name = str(field_name)  # Coerce to string
+    # ... rest of multipart encoding logic
 ```
-
-**After (pseudocode):**
-```python
-# New behavior — coerce field name to string
-for field_name, field_value in data.items():
-    field_name = str(field_name)
-    # field_name is now always a string
-    ...
-```
-
-Apply the same coercion when iterating over `files`.
 
 ### Test Requirements
 
@@ -160,7 +160,7 @@ def test_nonstring_multipart_field_names():
 ### Scope
 
 - **In scope:**
-  - Modify `Request._encode_files` in `src/requests/models.py`
+  - Modify `Request._encode_files` in `src/requests/models.py` to coerce field names to strings
   - Add `test_nonstring_multipart_field_names` in `tests/test_requests.py`
   - Verify AC1–AC5
 
@@ -226,13 +226,35 @@ None.
 
 ---
 
-## Notes
+## Implementation Notes
 
-- The fix is a single-line change in `_encode_files`: wrap field names with `str()` before passing to urllib3.
-- The test must not open network connections — use `Request(...).prepare()` directly, not `requests.post()`.
-- Urlencoded behavior (`data={1: "a"}` → `1=a`) must remain unchanged; this fix only affects multipart encoding (when `files` is set).
-- No changes to file-tuple shapes or public method signatures.
+### Code Change Detail
+
+The fix requires modifying `Request._encode_files` in `src/requests/models.py`. Locate the sections where the method iterates over `data` and `files` dictionaries to build multipart fields. Before passing field names to urllib3's encoder, wrap them with `str()`.
+
+**Example locations to modify:**
+- Any loop like `for k, v in data.items():` → change to use `str(k)` as the field name
+- Any loop like `for k, v in files.items():` → change to use `str(k)` as the field name
+
+The change is surgical: only the field name variable needs wrapping. Do not modify:
+- The urlencoded path (which already handles non-string keys correctly)
+- File value processing or tuple unpacking
+- Any method signatures
+
+### Test Implementation Detail
+
+Add `test_nonstring_multipart_field_names` to `tests/test_requests.py`. The test must:
+- Use `requests.Request(...).prepare()` (not `requests.post()` or any network call)
+- Cover AC1 (int key in `data` when `files` is set)
+- Cover AC2 (int key in `files`)
+- Cover AC3 (urlencoded behavior unchanged)
+- Assert no `AttributeError` is raised
+- Assert the multipart body contains `name="1"` for the coerced field
+
+### Why This Fix Works
+
+urllib3's multipart encoder calls `.translate()` on field names, which exists on strings but not integers. By coercing field names to strings in `_encode_files`, we ensure urllib3 receives valid input. The urlencoded path is unaffected because it's a separate code path that already handles non-string keys (producing bodies like `1=a`).
 
 ---
 
-**Planner focus applied:** The spec focuses on the precise behavior change in `_encode_files` (coerce field names to strings), the test requirements (no network calls, int keys in `data` and `files`), and preserving urlencoded behavior. All file paths match the repo tree (`src/requests/models.py`, `tests/test_requests.py`).
+**Critical: This story requires actual code changes.** The implementation must modify `src/requests/models.py` to coerce field names to strings in `_encode_files`, and add the test `test_nonstring_multipart_field_names` to `tests/test_requests.py`. A pull request with no file changes leaves the bug unfixed.
