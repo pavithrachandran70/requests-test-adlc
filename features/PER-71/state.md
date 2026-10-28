@@ -1,20 +1,20 @@
 ---
 schema_version: 1
 key: PER-71
-status: changes_requested
-current_node: pr_review
+status: waiting_architect_review
+current_node: architect_gate
 track: quick
 involved_repos:
 - demo-test
 depends_on: []
 owner: pavc
 lease_until: '2026-10-30T09:37:36.564918+00:00'
-revision: 77
+revision: 89
 hub_sha: null
 ticket_hash: 28d135594abe0d32
 jira_hash: 28d135594abe0d32
 tpm_approved: true
-specs_locked: true
+specs_locked: false
 skills_lock:
   bmad: 1cbcfa272fe65787c06a1fa164a901f46117cca7
 stories:
@@ -30,10 +30,10 @@ pr_ids:
   hub: '11'
   hub_plan: '12'
   demo-test: '4'
-waiting_for: spec_revision
-tokens_in: 92117
-tokens_out: 17645
-cost_anthropic_usd: 0.532712
+waiting_for: architect_review
+tokens_in: 171277
+tokens_out: 27664
+cost_anthropic_usd: 0.920477
 history:
 - node: intake
   note: snapshot written
@@ -170,6 +170,33 @@ history:
 - node: pr_review
   note: "major issue \u2192 delta spec gate (human)"
   at: '2026-10-28T09:56:35.142110+00:00'
+- node: pr_review
+  note: checkpoint push rejected
+  at: '2026-10-28T09:56:37.479765+00:00'
+- node: pr_review
+  note: changes requested
+  at: '2026-10-28T10:04:41.407106+00:00'
+- node: pr_review
+  note: "course correction \u2192 analyst"
+  at: '2026-10-28T10:07:40.593516+00:00'
+- node: analyst
+  note: wrote requirements.md
+  at: '2026-10-28T10:08:06.513697+00:00'
+- node: analyst
+  note: quick inline story
+  at: '2026-10-28T10:09:08.380513+00:00'
+- node: architect
+  note: wrote hld.md
+  at: '2026-10-28T10:10:27.373205+00:00'
+- node: architect
+  note: specs=['01']
+  at: '2026-10-28T10:10:27.384709+00:00'
+- node: merge_pack
+  note: merged 1 ticket(s)
+  at: '2026-10-28T10:10:27.398234+00:00'
+- node: architect_gate
+  note: awaiting human hub PR approval
+  at: '2026-10-28T10:10:27.409957+00:00'
 ---
 
 # Feature state

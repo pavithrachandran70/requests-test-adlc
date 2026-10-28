@@ -381,7 +381,7 @@ print(prepared.headers['Content-Length'])  # Should print '5'
 
 # Story summaries
 
-- `01-demo-test`: Story — Set Content-Length from UTF-8 bytes for a text StringIO body
+- `01-demo-test`: Tech Spec — PER-71
 
 ---
 

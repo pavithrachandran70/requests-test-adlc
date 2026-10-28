@@ -2,7 +2,7 @@
 
 **Story:** Set Content-Length from UTF-8 bytes for a text StringIO body
 
-**Source:** Ticket PER-71, review feedback (architect_review)
+**Source:** Ticket PER-71, review feedback (architect_review), change_requests.md
 
 ---
 
@@ -60,7 +60,7 @@
 
 **Change site:** `super_len` in `src/requests/utils.py` **only**. Do **not** change `prepare_body` in `src/requests/models.py`.
 
-When the stream is a text file object (`io.TextIOBase`, including `StringIO`), `Content-Length` must be the UTF-8 byte length, not the character count. Binary `BytesIO` must keep its current byte length. An explicit `Content-Length` from the caller must not be overwritten. Multipart and JSON bodies stay unchanged.
+When the stream is a text file object (`io.TextIOBase`, including `StringIO`), `Content-Length` must be the UTF-8 byte length, not the character count. Position is taken with `tell()` before the text-length helper. Binary `BytesIO` must keep its current byte length. An explicit `Content-Length` from the caller must not be overwritten. Multipart and JSON bodies stay unchanged.
 
 ---
 
@@ -81,4 +81,5 @@ When the stream is a text file object (`io.TextIOBase`, including `StringIO`), `
 - **Focus area:** UTF-8 encoding edge case in `super_len` (`src/requests/utils.py`)
 - **Constraint:** Binary streams must not change behavior; `prepare_body` in `src/requests/models.py` must not be modified
 - **Test isolation:** All verification uses `prepare()` and does not open network connections
-- **File scope:** `src/requests/utils.py`, plus test file in `tests/test_utils.py` or `tests/test_requests.py`
+- **File scope:** `src/requests/utils.py`, plus test file in `tests/test_utils.py`
+- **Stream position:** Position is captured with `tell()` before reading content for length calculation

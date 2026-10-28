@@ -55,3 +55,21 @@
 2026-10-28T09:56:27.298265+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=457 out=78 usd=0.000847
 2026-10-28T09:56:32.568216+00:00 reviewer llm model=claude-haiku-4-5-20251001 in=465 out=192 usd=0.001425
 2026-10-28T09:56:35.142572+00:00 node end pr_review waiting=spec_revision
+2026-10-28T10:07:40.609733+00:00 heartbeat analyst
+2026-10-28T10:07:40.610872+00:00 node start analyst
+2026-10-28T10:07:40.641597+00:00 heartbeat analyst
+2026-10-28T10:08:06.513039+00:00 analyst llm model=claude-sonnet-4-5-20250929 in=26841 out=1079 usd=0.096708
+2026-10-28T10:08:06.524948+00:00 heartbeat analyst
+2026-10-28T10:09:08.379435+00:00 analyst llm model=claude-sonnet-4-5-20250929 in=26844 out=4221 usd=0.143847
+2026-10-28T10:09:08.380723+00:00 node end analyst waiting=None
+2026-10-28T10:09:08.401332+00:00 heartbeat architect
+2026-10-28T10:09:08.401523+00:00 node start architect
+2026-10-28T10:09:08.415332+00:00 heartbeat architect
+2026-10-28T10:10:27.372578+00:00 architect llm model=claude-sonnet-4-5-20250929 in=25475 out=4719 usd=0.14721
+2026-10-28T10:10:27.384856+00:00 node end architect waiting=None
+2026-10-28T10:10:27.394823+00:00 heartbeat merge_pack
+2026-10-28T10:10:27.394915+00:00 node start merge_pack
+2026-10-28T10:10:27.398370+00:00 node end merge_pack waiting=None
+2026-10-28T10:10:27.409333+00:00 heartbeat architect_gate
+2026-10-28T10:10:27.409494+00:00 node start architect_gate
+2026-10-28T10:10:27.410051+00:00 node end architect_gate waiting=architect_review

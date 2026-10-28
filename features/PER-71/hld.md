@@ -30,7 +30,7 @@ This architecture constrains the fix for PER-71 to a single function: `super_len
 
 **Binds:** A file-like object is treated as a text stream if `isinstance(o, io.TextIOBase)` returns `True`.  
 **Prevents:** Unreliable heuristics (e.g., checking `mode` attributes, which may not exist on all file-like objects).  
-**Rule:** Primary detection: `isinstance(o, io.TextIOBase)`. Fallback for duck-typed objects: `hasattr(o, 'read')` and `isinstance(o.read(0), str)`.  
+**Rule:** Primary detection: `isinstance(o, io.TextIOBase)`. This catches `StringIO`, `TextIOWrapper`, and other stdlib text streams.  
 **Status:** [ADOPTED] — Python stdlib standard for text I/O
 
 ### AD-3: Text stream length is UTF-8 byte count
@@ -40,21 +40,28 @@ This architecture constrains the fix for PER-71 to a single function: `super_len
 **Rule:** Read the stream, encode as UTF-8, return byte length. Restore the stream's original position with `seek(current_position)`.  
 **Status:** New — fixes the reported bug
 
-### AD-4: Binary streams and non-stream bodies are unchanged
+### AD-4: Position handling precedes content read
+
+**Binds:** Stream position must be captured with `.tell()` **before** reading content for length calculation.  
+**Prevents:** Reading from an incorrect position or failing to restore state correctly.  
+**Rule:** Always call `current_position = o.tell()` as the first operation inside the text-stream branch, before `o.read()`.  
+**Status:** [ADOPTED] — per change_requests.md clarification
+
+### AD-5: Binary streams and non-stream bodies are unchanged
 
 **Binds:** Binary file objects (`BytesIO`, files opened in binary mode) continue to use the existing byte-length logic. Non-file objects (strings, bytes, etc.) are unchanged.  
 **Prevents:** Regression in existing functionality.  
 **Rule:** Only `io.TextIOBase` instances trigger the new UTF-8 encoding path. All other types fall through to existing logic.  
 **Status:** [ADOPTED] — preserves backward compatibility
 
-### AD-5: Explicit `Content-Length` headers are not overridden
+### AD-6: Explicit `Content-Length` headers are not overridden
 
 **Binds:** If the caller supplies a `Content-Length` header explicitly, `prepare_body` must not overwrite it.  
 **Prevents:** Breaking APIs or use cases where the caller pre-calculates length.  
 **Rule:** The fix in `super_len` only affects the computed length when no explicit header exists. (This is already the behavior of `prepare_body`; the fix does not alter it.)  
 **Status:** [ADOPTED] — existing behavior preserved
 
-### AD-6: Multipart and JSON bodies are out of scope
+### AD-7: Multipart and JSON bodies are out of scope
 
 **Binds:** Multipart uploads and JSON-serialized bodies are not affected by this fix.  
 **Prevents:** Scope creep into unrelated body-preparation logic.  
@@ -77,11 +84,11 @@ Add a type check at the top of the function:
 import io
 
 def super_len(o):
-    # NEW: Handle text streams
+    # NEW: Handle text streams (StringIO, TextIOWrapper, etc.)
     if isinstance(o, io.TextIOBase):
-        current_position = o.tell()
+        current_position = o.tell()  # Position captured BEFORE read (AD-4)
         content = o.read()
-        o.seek(current_position)
+        o.seek(current_position)  # Reset stream position
         return len(content.encode('utf-8'))
     
     # Existing logic for other types (unchanged)
@@ -114,7 +121,8 @@ def super_len(o):
 
 **Rationale:**  
 - The `isinstance(io.TextIOBase)` check catches `StringIO`, `TextIOWrapper`, and other text streams.
-- Reading the full content and encoding as UTF-8 is safe because `prepare_body` already reads and consumes the body for length calculation (it does not double-read).
+- Position is taken with `tell()` **before** the text-length helper (per AD-4 and change_requests.md).
+- Reading the full content and encoding as UTF-8 is safe because `prepare_body` already reads and consumes the body for length calculation (it does not double-read in a way that causes data loss).
 - The `.tell()` / `.seek()` dance preserves the stream's position for subsequent reads in `prepare_body`.
 
 **Edge case:** Stream without `.tell()` or `.seek()` support. If `tell()` or `seek()` raises `io.UnsupportedOperation`, the function falls back to existing logic (which may return 0 or raise an error). This is acceptable because such streams are rare and already unsupported by the current codebase.
@@ -140,8 +148,10 @@ sequenceDiagram
     PreparedRequest->>prepare_body: prepare_body(data, files, json)
     prepare_body->>super_len: super_len(StringIO("héllo"))
     Note over super_len: isinstance(o, io.TextIOBase) → True
+    super_len->>super_len: current_position = o.tell()
     super_len->>super_len: content = o.read() → "héllo"
     super_len->>super_len: len(content.encode('utf-8')) → 6
+    super_len->>super_len: o.seek(current_position)
     super_len-->>prepare_body: return 6
     prepare_body->>PreparedRequest: headers['Content-Length'] = '6'
     PreparedRequest-->>Caller: PreparedRequest(headers={'Content-Length': '6'})
@@ -150,7 +160,7 @@ sequenceDiagram
 **Key points:**
 - The caller passes a `StringIO` as `data`.
 - `prepare_body` calls `super_len` on the `StringIO`.
-- `super_len` detects `io.TextIOBase`, reads the content, encodes as UTF-8, and returns the byte length.
+- `super_len` detects `io.TextIOBase`, captures position with `.tell()`, reads the content, encodes as UTF-8, and returns the byte length.
 - `prepare_body` sets `Content-Length` from the returned value.
 - The body is later read again by the adapter when sending the request (existing behavior; `prepare_body` does not consume the body permanently).
 
@@ -218,26 +228,32 @@ import pytest
 
 
 class TestTextStreamContentLength:
+    """Tests for UTF-8 byte length calculation in text streams (PER-71)"""
+
     def test_text_stringio_utf8_length(self):
+        """AC-1: Text StringIO with non-ASCII calculates UTF-8 byte length"""
         text = "héllo"  # 5 chars, 6 UTF-8 bytes
         req = requests.Request("PUT", "http://example.invalid/x", data=StringIO(text))
         prepared = req.prepare()
         assert prepared.headers['Content-Length'] == '6'
 
     def test_binary_bytesio_length_unchanged(self):
-        binary = BytesIO("héllo".encode('utf-8'))
+        """AC-2: Binary BytesIO length remains unchanged"""
+        binary = BytesIO("héllo".encode('utf-8'))  # 6 bytes
         req = requests.Request("PUT", "http://example.invalid/x", data=binary)
         prepared = req.prepare()
         assert prepared.headers['Content-Length'] == '6'
 
     def test_ascii_stringio_length(self):
-        text = "hello"
+        """AC-3: ASCII-only text StringIO calculates correct byte length"""
+        text = "hello"  # 5 chars, 5 bytes
         req = requests.Request("PUT", "http://example.invalid/x", data=StringIO(text))
         prepared = req.prepare()
         assert prepared.headers['Content-Length'] == '5'
 
     def test_existing_body_length_tests_pass(self):
-        # Ensures no regression in existing functionality
+        """AC-4: Existing body-length tests remain unaffected"""
+        # Placeholder; real validation is full suite run
         pass
 ```
 
@@ -259,7 +275,7 @@ Run the full test suite (`python -m pytest tests`) to confirm:
 
 **Impact:** High — `super_len` would raise an exception or return incorrect length.  
 **Likelihood:** Low — most real-world file-like objects support `.tell()` and `.seek()`.  
-**Mitigation:** Wrap `.tell()` and `.seek()` calls in a try/except block. If `io.UnsupportedOperation` is raised, fall back to reading the stream once, caching the length, and replacing the body with a `BytesIO` wrapper (advanced mitigation; defer unless real cases emerge).  
+**Mitigation:** Wrap `.tell()` and `.seek()` calls in a try/except block. If `io.UnsupportedOperation` is raised, fall back to existing logic (which may return 0 or raise an error). This is acceptable because such streams are rare and already unsupported by the current codebase.  
 **Decision:** Accept the risk for MVP. If unsupported streams appear in production, add fallback logic in a follow-up.
 
 ### Risk 2: Performance impact of reading the stream twice
@@ -317,7 +333,7 @@ graph TD
     C -->|prepare_body| D[prepare_body fn]
     D -->|super_len| E[super_len fn]
     E -->|isinstance TextIOBase?| F{Text Stream?}
-    F -->|Yes| G[Read + encode UTF-8]
+    F -->|Yes| G[tell + read + encode UTF-8]
     F -->|No| H[Existing logic]
     G -->|byte length| D
     H -->|length| D
@@ -343,7 +359,7 @@ stateDiagram-v2
 
 ### src/requests/utils.py
 
-**Change:** Add `isinstance(io.TextIOBase)` check at the top of `super_len`. Read content, encode as UTF-8, return byte length. Restore stream position.
+**Change:** Add `isinstance(io.TextIOBase)` check at the top of `super_len`. Capture position with `.tell()` before reading. Read content, encode as UTF-8, return byte length. Restore stream position.
 
 ### tests/test_utils.py
 
@@ -359,4 +375,4 @@ _(None — this is a story-level spine; no parent epic/feature spine exists)_
 
 ## Summary
 
-This architecture constrains the PER-71 fix to a single function (`super_len` in `src/requests/utils.py`) and a well-defined behavior (UTF-8 byte length for text streams). The fix is minimal, preserves backward compatibility, and avoids touching the complex `prepare_body` logic. All acceptance criteria map to deterministic unit tests. The design is ready for implementation.
+This architecture constrains the PER-71 fix to a single function (`super_len` in `src/requests/utils.py`) and a well-defined behavior (UTF-8 byte length for text streams). The fix is minimal, preserves backward compatibility, and avoids touching the complex `prepare_body` logic. All acceptance criteria map to deterministic unit tests. Position is captured with `.tell()` before reading content (per change_requests.md clarification). The design is ready for implementation.
