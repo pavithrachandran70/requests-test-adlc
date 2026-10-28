@@ -33,7 +33,7 @@ Update requirements.md and stories/01-demo-test.md so the change site is super_l
 2. [x] **architect (hld)** — Reviewer feedback: fix location is a design decision; HLD must constrain the change to super_len only.
    - focus: Write HLD constraining the fix to super_len in src/requests/utils.py. When the stream is io.TextIOBase (including StringIO), Content-Length must be UTF-8 byte length, not character count. Do not change prepare_body in src/requests/models.py. Binary BytesIO keeps current byte length. Explicit Content-Length from caller must not be overwritten. Multipart and JSON bodies stay unchanged.
 3. [x] **merge_pack (pack)** _(auto)_ — Pack per-ticket specs into merged_plan.md for review.
-4. [ ] **architect_gate (review)** _(auto)_ _(rerun)_ — Human approval of specs and this plan before Dev.
+4. [x] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
 5. [ ] **dev** _(auto)_ — Fixed execution step.
 6. [ ] **pre_pr_qa** _(auto)_ — Fixed execution step.
 7. [ ] **open_pr** _(auto)_ — Fixed execution step.

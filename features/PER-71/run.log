@@ -39,3 +39,4 @@
 2026-10-28T09:37:37.670293+00:00 heartbeat dev
 2026-10-28T09:37:37.670344+00:00 node start dev
 2026-10-28T09:37:37.755467+00:00 dev cursor 01-demo-test attempt=1
+2026-10-28T09:43:11.573585+00:00 node end dev waiting=human_pr

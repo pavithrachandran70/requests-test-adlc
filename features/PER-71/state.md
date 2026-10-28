@@ -1,7 +1,7 @@
 ---
 schema_version: 1
 key: PER-71
-status: in_development
+status: developed
 current_node: dev
 track: quick
 involved_repos:
@@ -9,7 +9,7 @@ involved_repos:
 depends_on: []
 owner: pavc
 lease_until: '2026-10-30T09:37:36.564918+00:00'
-revision: 65
+revision: 67
 hub_sha: null
 ticket_hash: 28d135594abe0d32
 jira_hash: 28d135594abe0d32
@@ -29,7 +29,7 @@ pr_ids:
   hub_arch: '11'
   hub: '11'
   hub_plan: '12'
-waiting_for: null
+waiting_for: human_pr
 tokens_in: 80965
 tokens_out: 15998
 cost_anthropic_usd: 0.482521
@@ -114,6 +114,12 @@ history:
 - node: dev
   note: done 01-demo-test
   at: '2026-10-28T09:43:09.022338+00:00'
+- node: dev
+  note: checkpoint push rejected
+  at: '2026-10-28T09:43:11.565086+00:00'
+- node: dev
+  note: 'human_mode: code ready, PR deferred'
+  at: '2026-10-28T09:43:11.573439+00:00'
 ---
 
 # Feature state
