@@ -1,0 +1,24 @@
+{
+  "comment_ids": [
+    "6441627532",
+    "4388544199"
+  ],
+  "tier": "moderate",
+  "stories": [
+    "01-demo-test"
+  ],
+  "items": [
+    {
+      "comment_id": "6441627532",
+      "repo": "demo-test",
+      "path": null,
+      "tier": "moderate"
+    },
+    {
+      "comment_id": "4388544199",
+      "repo": "demo-test",
+      "path": ".gitignore",
+      "tier": "moderate"
+    }
+  ]
+}

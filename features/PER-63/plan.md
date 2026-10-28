@@ -25,13 +25,13 @@ HTTPAdapter.cert_verify is cert_verify(self, conn, url, verify, cert). These sam
 ## Steps
 
 1. [x] **analyst (inline_story)** — Ticket scope is concrete: change two specific raises (cert and key), preserve the third (CA-bundle), set filename attribute, and maintain OSError compatibility.
-2. [ ] **designer (lld)** _(rerun)_ — Caller-visible exception contract: must specify exact raise statements for missing cert and key paths, how filename is set, and that CA-bundle raise is unchanged.
+2. [x] **designer (lld)** — Caller-visible exception contract: must specify exact raise statements for missing cert and key paths, how filename is set, and that CA-bundle raise is unchanged.
    - focus: Rewrite Test 1, Test 2, and Test 3 to call cert_verify(conn, url, verify, cert) with a stand-in connection object, an https URL, verify=True, and cert set to the missing path or (cert_path, missing_key_path) tuple. Assert exc.filename is that path. Tests must not open a TLS connection.
-3. [ ] **test_architect (tests)** _(rerun)_ — Acceptance criteria specify multiple edge cases: missing cert, missing key, filename attribute, backward compatibility with OSError catch, and message format for existing tests.
-4. [ ] **architect_gate (review)** _(auto)_ _(rerun)_ — Human approval of specs and this plan before Dev.
-5. [ ] **dev** _(auto)_ — Fixed execution step.
-6. [ ] **pre_pr_qa** _(auto)_ — Fixed execution step.
-7. [ ] **open_pr** _(auto)_ — Fixed execution step.
+3. [x] **test_architect (tests)** — Acceptance criteria specify multiple edge cases: missing cert, missing key, filename attribute, backward compatibility with OSError catch, and message format for existing tests.
+4. [x] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
+5. [x] **dev** _(auto)_ — Fixed execution step.
+6. [x] **pre_pr_qa** _(auto)_ — Fixed execution step.
+7. [x] **open_pr** _(auto)_ — Fixed execution step.
 8. [ ] **pr_review** _(auto)_ — Fixed execution step.
 9. [ ] **merge** _(auto)_ — Fixed execution step.
 
